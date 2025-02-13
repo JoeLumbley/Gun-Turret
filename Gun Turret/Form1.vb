@@ -1,12 +1,5 @@
 ﻿' Gun Turret
 
-
-
-
-
-
-
-
 ' MIT License
 ' Copyright(c) 2025 Joseph W. Lumbley
 
@@ -30,12 +23,6 @@
 
 
 ' https://github.com/JoeLumbley/Gun-Turret
-
-
-
-
-
-
 
 Imports System.IO
 Imports System.Math
