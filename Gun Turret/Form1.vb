@@ -649,7 +649,7 @@ Public Class Form1
 
         Player.AddSound("ambientnoise", FilePath)
 
-        Player.SetVolume("ambientnoise", 500)
+        Player.SetVolume("ambientnoise", 200)
 
         ' Set the center point to the middle of the form
         center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
