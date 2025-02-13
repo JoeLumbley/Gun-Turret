@@ -456,41 +456,7 @@ Public Sub New(brush As Brush, width As Double, height As Double, velocity As Si
 - **Me.Velocity.X = velocity**: Sets the x-velocity to the specified speed, moving right.
 - **Me.Velocity.Y = -velocity**: Sets the y-velocity to negative, moving downwards.
 - **X -= Me.Width / 2**: Adjusts the x-position to center the projectile horizontally.
-- **Y -= Me.Height /
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- **Y -= Me.Height / 4**: Adjusts the y-position to center the projectile vertically.
 
 
 
