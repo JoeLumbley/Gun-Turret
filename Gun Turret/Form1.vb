@@ -689,7 +689,6 @@ Public Class Form1
 
     End Sub
 
-
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
 
@@ -721,12 +720,12 @@ Public Class Form1
             End If
 
         End If
+
         If e.KeyCode = Keys.Left Then
 
             If MyTurret.AngleInDegrees > 0 Then
 
                 MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
-
 
             Else
 
@@ -736,17 +735,9 @@ Public Class Form1
 
         End If
 
-        ' Fire a projectile based on key press.
         If e.KeyCode = Keys.A Then
 
             ADown = True
-
-            'Projectiles.FireProjectile(MyTurret.Center, MyTurret.AngleInDegrees)
-
-            ''If Not Player.IsPlaying("gunshot") Then
-            'Player.PlayOverlapping("gunshot")
-
-            'End If
 
         End If
 
@@ -754,54 +745,22 @@ Public Class Form1
 
     Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
         MyBase.OnKeyUp(e)
-        ' Handle key presses to rotate the turret or fire projectiles.
 
-        ' Rotate turret based on key press.
         If e.KeyCode = Keys.Right Then
 
-            'If MyTurret.AngleInDegrees < 360 Then
-
-            '    MyTurret.AngleInDegrees += 45 ' Rotate clockwise
-
-            'Else
-
-            '    MyTurret.AngleInDegrees = 45
-
-            'End If
-
         End If
+
         If e.KeyCode = Keys.Left Then
 
-            'If MyTurret.AngleInDegrees > 0 Then
-
-            '    MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
-
-
-            'Else
-
-            '    MyTurret.AngleInDegrees = 315
-
-            'End If
-
         End If
 
-        ' Fire a projectile based on key press.
         If e.KeyCode = Keys.A Then
 
             ADown = False
 
-
-            'Projectiles.FireProjectile(MyTurret.Center, MyTurret.AngleInDegrees)
-
-            ''If Not Player.IsPlaying("gunshot") Then
-            'Player.PlayOverlapping("gunshot")
-
-            'End If
-
         End If
 
     End Sub
-
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
 
