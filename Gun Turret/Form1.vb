@@ -638,13 +638,20 @@ Public Class Form1
 
         CreateSoundFiles()
 
-        ReloadTime = TimeSpan.FromMilliseconds(120)
+        ReloadTime = TimeSpan.FromMilliseconds(100)
 
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
 
         Player.AddOverlapping("gunshot", FilePath)
 
         Player.SetVolumeOverlapping("gunshot", 1000)
+
+        FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
+
+        Player.AddSound("ambientnoise", FilePath)
+
+        Player.SetVolume("ambientnoise", 500)
+
 
 
         ' Set the center point to the middle of the form
@@ -661,6 +668,8 @@ Public Class Form1
 
         Text = "Gun Turret - Code with Joe"
 
+        Player.LoopSound("ambientnoise")
+
     End Sub
 
     Private Sub CreateSoundFiles()
@@ -668,6 +677,11 @@ Public Class Form1
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
 
         CreateFileFromResource(FilePath, My.Resources.Resource1.gunshot003)
+
+        FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
+
+        CreateFileFromResource(FilePath, My.Resources.Resource1.ambientnoise)
+
 
     End Sub
 
