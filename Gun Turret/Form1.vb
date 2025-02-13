@@ -673,9 +673,9 @@ Public Class Form1
 
             If ElapsedTime > ReloadTime Then
 
-                Projectiles.FireProjectile(MyTurret.Center, MyTurret.AngleInDegrees)
-
                 Player.PlayOverlapping("gunshot")
+
+                Projectiles.FireProjectile(MyTurret.Center, MyTurret.AngleInDegrees)
 
                 LastFireTime = Now
 
