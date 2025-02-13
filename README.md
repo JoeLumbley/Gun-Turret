@@ -14,15 +14,15 @@ A application that simulates a gun turret, allowing for rotation and firing proj
 
 
 
+---
 
 
 
 
 
+# Code Walkthrough
 
-# Understanding the Turret and Projectile Manager Code
-
-Welcome to this detailed walkthrough of a code structure that simulates a turret and projectile manager. This code is written in Visual Basic and is designed to create a simple graphical representation of a turret that can fire projectiles. We'll break down each part of the code, explaining what it does line by line. This is aimed at beginners, so we'll ensure clarity and understanding throughout.
+Welcome to this detailed walkthrough of a code structure that simulates a turret and projectile manager. This code is written in Visual Basic and is designed to create a simple graphical representation of a turret that can fire projectiles. We'll break down each part of the code, explaining what it does line by line.
 
 ## Table of Contents
 1. [Turret Structure](#turret-structure)
