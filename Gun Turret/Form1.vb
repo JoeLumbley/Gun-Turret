@@ -612,7 +612,7 @@ Public Class Form1
 
         CreateSoundFiles()
 
-        ReloadTime = TimeSpan.FromMilliseconds(600)
+        ReloadTime = TimeSpan.FromMilliseconds(120)
 
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
 
@@ -692,6 +692,10 @@ Public Class Form1
 
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
+
+        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+
+        e.Graphics.DrawString("Use arrow keys to rotate turret. Press A to fire hold for automatic.", New Font("Segoe UI", 12), Brushes.Black, New PointF(0, 0))
 
         Projectiles.DrawProjectiles(e.Graphics)
 
