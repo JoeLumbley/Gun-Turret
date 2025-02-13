@@ -459,3 +459,520 @@ Public Sub New(brush As Brush, width As Double, height As Double, velocity As Si
 - **Y -= Me.Height /
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```vb
+        Case Else
+```
+- **Case Else**: This handles any angles that do not match the specified cases (0, 45, 90, etc.).
+
+```vb
+            Debug.Print("Projectile was not set to an angle of fire in 45° increments.")
+```
+- **Debug.Print(...)**: This outputs a message to the debug console, indicating that the projectile's angle was not set correctly. This is useful for debugging purposes.
+
+```vb
+    Creation = Now()
+```
+- **Creation = Now()**: This sets the `Creation` variable to the current time, marking when the projectile was created.
+
+### UpdateMovement Method
+
+```vb
+Public Sub UpdateMovement(ByVal deltaTime As TimeSpan)
+```
+- **Public Sub UpdateMovement(ByVal deltaTime As TimeSpan)**: This method updates the position of the projectile based on its velocity and the elapsed time.
+
+```vb
+    X += Velocity.X * deltaTime.TotalSeconds 'Δs = V * Δt
+```
+- **X += Velocity.X * deltaTime.TotalSeconds**: This updates the x-coordinate of the projectile by adding the product of its x-velocity and the total elapsed time in seconds. This follows the formula for displacement (Δs = V * Δt).
+
+```vb
+    Y += Velocity.Y * deltaTime.TotalSeconds 'Δs = V * Δt
+```
+- **Y += Velocity.Y * deltaTime.TotalSeconds**: This updates the y-coordinate of the projectile similarly, using its y-velocity.
+
+### NearestX, NearestY, NearestWidth, NearestHeight Methods
+
+```vb
+Public Function NearestX() As Integer
+```
+- **Public Function NearestX() As Integer**: This method rounds the x-coordinate of the projectile to the nearest integer.
+
+```vb
+    Return RoundToNearest(X)
+```
+- **Return RoundToNearest(X)**: This calls the `RoundToNearest` function to round the x-coordinate.
+
+```vb
+Public Function NearestY() As Integer
+```
+- **Public Function NearestY() As Integer**: Similar to `NearestX`, this method rounds the y-coordinate.
+
+```vb
+    Return RoundToNearest(Y)
+```
+- **Return RoundToNearest(Y)**: This rounds the y-coordinate to the nearest integer.
+
+```vb
+Public Function NearestWidth() As Integer
+```
+- **Public Function NearestWidth() As Integer**: This method rounds the width of the projectile to the nearest integer.
+
+```vb
+    Return RoundToNearest(Width)
+```
+- **Return RoundToNearest(Width)**: This rounds the width.
+
+```vb
+Public Function NearestHeight() As Integer
+```
+- **Public Function NearestHeight() As Integer**: This method rounds the height of the projectile to the nearest integer.
+
+```vb
+    Return RoundToNearest(Height)
+```
+- **Return RoundToNearest(Height)**: This rounds the height.
+
+### RoundToNearest Function
+
+```vb
+Private Function RoundToNearest(ByVal value As Double) As Integer
+```
+- **Private Function RoundToNearest(ByVal value As Double) As Integer**: This private function rounds a given double value to the nearest integer.
+
+```vb
+    Return CInt(Math.Round(value))
+```
+- **Return CInt(Math.Round(value))**: This uses `Math.Round` to round the value and then converts it to an integer using `CInt`.
+
+### ProjectileManager Variables
+
+```vb
+Private Projectiles() As Projectile
+```
+- **Private Projectiles() As Projectile**: This declares an array of `Projectile` structures to hold all the projectiles.
+
+```vb
+Public Brush As Brush
+```
+- **Public Brush As Brush**: This variable defines the brush used to draw the projectiles.
+
+```vb
+Public BarrelLength As Integer
+```
+- **Public BarrelLength As Integer**: This variable stores the length of the turret's barrel.
+
+```vb
+Public MuzzleVelocity As Single
+```
+- **Public MuzzleVelocity As Single**: This variable defines the initial speed of the projectiles when fired.
+
+```vb
+Public Size As Size
+```
+- **Public Size As Size**: This variable stores the size of the projectiles.
+
+```vb
+Public LifeTimeInSeconds As Integer
+```
+- **Public LifeTimeInSeconds As Integer**: This variable defines how long the projectiles will remain active before being removed.
+
+### ProjectileManager Constructor
+
+```vb
+Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLength As Integer, lifeTimeInSeconds As Integer)
+```
+- **Public Sub New(...)**: This constructor initializes a new instance of the `ProjectileManager` structure with specific values.
+
+```vb
+    Me.Brush = brush
+```
+- **Me.Brush = brush**: This assigns the `brush` parameter to the `Brush` variable.
+
+```vb
+    Me.BarrelLength = barrelLength
+```
+- **Me.BarrelLength = barrelLength**: This assigns the `barrelLength` parameter to the `BarrelLength` variable.
+
+```vb
+    Me.MuzzleVelocity = muzzleVelocity
+```
+- **Me.MuzzleVelocity = muzzleVelocity**: This assigns the `muzzleVelocity` parameter to the `MuzzleVelocity` variable.
+
+```vb
+    Me.Size = size
+```
+- **Me.Size = size**: This assigns the `size` parameter to the `Size` variable.
+
+```vb
+    Me.LifeTimeInSeconds = lifeTimeInSeconds
+```
+- **Me.LifeTimeInSeconds = lifeTimeInSeconds**: This assigns the `lifeTimeInSeconds` parameter to the `LifeTimeInSeconds` variable.
+
+### DrawProjectiles Method
+
+```vb
+Public Sub DrawProjectiles(g As Graphics)
+```
+- **Public Sub DrawProjectiles(g As Graphics)**: This method draws all active projectiles on the graphics surface.
+
+```vb
+    If Projectiles IsNot Nothing Then
+```
+- **If Projectiles IsNot Nothing Then**: This checks if there are any projectiles in the array.
+
+```vb
+        For Each Projectile In Projectiles
+```
+- **For Each Projectile In Projectiles**: This starts a loop to iterate through each projectile in the `Projectiles` array.
+
+```vb
+            g.FillRectangle(Projectile.Brush, Projectile.NearestX, Projectile.NearestY, Projectile.NearestWidth, Projectile.NearestHeight)
+```
+- **g.FillRectangle(...)**: This draws each projectile as a filled rectangle using its brush and rounded dimensions.
+
+```vb
+        Next
+```
+- **Next**: This ends the loop.
+
+```vb
+    End If
+```
+- **End If**: This ends the conditional check for projectiles.
+
+### FireProjectile Method
+
+```vb
+Public Sub FireProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
+```
+- **Public Sub FireProjectile(CenterOfFire As PointF, AngleInDegrees As Single)**: This method is called to fire a projectile from a specified center point at a given angle.
+
+```vb
+    AddProjectile(CenterOfFire, AngleInDegrees)
+```
+- **AddProjectile(CenterOfFire, AngleInDegrees)**: This calls another method to add a new projectile to the array.
+
+### AddProjectile Method
+
+```vb
+Private Sub AddProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
+```
+- **Private Sub AddProjectile(CenterOfFire As PointF, AngleInDegrees As Single)**: This method adds a new projectile to the array.
+
+```vb
+    If Projectiles IsNot Nothing Then
+```
+- **If Projectiles IsNot Nothing Then**: This checks if there are already projectiles in the array.
+
+```vb
+        Array.Resize(Projectiles, Projectiles.Length + 1)
+```
+- **Array.Resize(Projectiles, Projectiles.Length + 1)**: This increases the size of the `Projectiles` array by one to accommodate the new projectile.
+
+```vb
+    Else
+```
+- **Else**: This begins the alternative case if there are no existing projectiles.
+
+```vb
+        ReDim Projectiles(0)
+```
+- **ReDim Projectiles(0)**: This initializes the `Projectiles` array with one element.
+
+```vb
+    End If
+```
+- **End If**: This ends the conditional check for existing projectiles.
+
+```vb
+    Dim Index As Integer = Projectiles.Length - 1
+```
+- **Dim Index As Integer = Projectiles.Length - 1**: This sets the `Index` variable to the last position in the array, where the new projectile will be stored.
+
+```vb
+    Projectiles(Index) = New Projectile(Brush, Size.Width, Size.Height, MuzzleVelocity, CenterOfFire, BarrelLength, AngleInDegrees)
+```
+- **Projectiles(Index) = New Projectile(...)**: This creates a new instance of the `Projectile` structure and stores it in the array at the `Index` position.
+
+### UpdateProjectiles Method
+
+```vb
+Public Sub UpdateProjectiles(deltaTime As TimeSpan)
+```
+- **Public Sub UpdateProjectiles(deltaTime As TimeSpan)**: This method updates the positions of all active projectiles based on the elapsed time.
+
+```vb
+    Dim ElapsedTime As TimeSpan
+```
+- **Dim ElapsedTime As TimeSpan**: This declares a variable to track the elapsed time since each projectile was created.
+
+```vb
+    If Projectiles IsNot Nothing Then
+```
+- **If Projectiles IsNot Nothing Then**: This checks if there are any projectiles in the array.
+
+```vb
+        For Each Projectile In Projectiles
+```
+- **For Each Projectile In Projectiles**: This starts a loop to iterate through each projectile in the `Projectiles` array.
+
+```vb
+            Dim Index As Integer = Array.IndexOf(Projectiles, Projectile)
+```
+- **Dim Index As Integer = Array.IndexOf(Projectiles, Projectile)**: This retrieves the index of the current projectile in the array.
+
+```vb
+            ElapsedTime = Now - Projectile.Creation
+```
+- **ElapsedTime = Now - Projectile.Creation**: This calculates the time elapsed since the projectile was created.
+
+```vb
+            If ElapsedTime < TimeSpan.FromSeconds(LifeTimeInSeconds) Then
+```
+- **If ElapsedTime < TimeSpan.FromSeconds(LifeTimeInSeconds) Then**: This checks if the projectile's lifetime has not yet expired.
+
+```vb
+                Projectiles(Index).UpdateMovement(deltaTime)
+```
+- **Projectiles(Index).UpdateMovement(deltaTime)**: If the projectile is still active, this calls the `UpdateMovement` method to update its position.
+
+```vb
+            Else
+```
+- **Else**: This begins the alternative case if the projectile's lifetime has expired.
+
+```vb
+                RemoveProjectile(Index)
+```
+- **RemoveProjectile(Index)**: This calls a method to remove the expired projectile from the array.
+
+```vb
+            End If
+```
+- **End If**: This ends the conditional check for the projectile's lifetime.
+
+```vb
+        Next
+```
+- **Next**: This ends the loop.
+
+```vb
+    End If
+```
+- **End If**: This ends the conditional check for existing projectiles.
+
+### RemoveProjectile Method
+
+```vb
+Private Sub RemoveProjectile(Index As Integer)
+```
+- **Private Sub RemoveProjectile(Index As Integer)**: This method removes a projectile from the array at the specified index.
+
+```vb
+    Projectiles = Projectiles.Where(Function(e, i) i <> Index).ToArray()
+```
+- **Projectiles = Projectiles.Where(Function(e, i) i <> Index).ToArray()**: This uses LINQ to filter the `Projectiles` array, keeping only those projectiles whose index does not match the specified index. The result is converted back to an array.
+
+## AudioPlayer Structure
+
+```vb
+Public Structure AudioPlayer
+```
+- **Public Structure AudioPlayer**: This defines a new structure called `AudioPlayer`, which manages sound playback.
+
+```vb
+    <DllImport("winmm.dll", EntryPoint:="mciSendStringW")>
+```
+- **<DllImport(...)>**: This attribute allows the use of the Windows API function `mciSendStringW`, enabling us to send commands to the multimedia control interface for audio playback.
+
+```vb
+    Private Shared Function mciSendStringW(<MarshalAs(UnmanagedType.LPWStr)> ByVal lpszCommand As String, <MarshalAs(UnmanagedType.LPWStr)> ByVal lpszReturnString As StringBuilder, ByVal cchReturn As UInteger, ByVal hwndCallback As IntPtr) As Integer
+```
+- **Private Shared Function mciSendStringW(...)**: This declares the `mciSendStringW` function, which sends commands to the multimedia control interface. The parameters allow us to specify commands, receive return strings, and handle callbacks.
+
+```vb
+    End Function
+```
+- **End Function**: This ends the declaration of the `mciSendStringW` function.
+
+### AddSound Method
+
+```vb
+Public Function AddSound(SoundName As String, FilePath As String) As Boolean
+```
+- **Public Function AddSound(SoundName As String, FilePath As String) As Boolean**: This method adds a sound to the audio player.
+
+```vb
+    If Not String.IsNullOrWhiteSpace(SoundName) AndAlso IO.File.Exists(FilePath) Then
+```
+- **If Not String.IsNullOrWhiteSpace(SoundName) AndAlso IO.File.Exists(FilePath) Then**: This checks if the sound name is not empty and if the specified file exists.
+
+```vb
+        Dim CommandOpen As String = $"open ""{FilePath}"" alias {SoundName}"
+```
+- **Dim CommandOpen As String = $"open ""{FilePath}"" alias {SoundName}"**: This constructs a command string to open the sound file and assign it an alias.
+
+```vb
+        If Sounds Is Nothing Then
+```
+- **If Sounds Is Nothing Then**: This checks if the `Sounds` array is empty.
+
+```vb
+            If SendMciCommand(CommandOpen, IntPtr.Zero) Then
+```
+- **If SendMciCommand(CommandOpen, IntPtr.Zero) Then**: This sends the command to open the sound file. If successful, it proceeds to add the sound.
+
+```vb
+                ReDim Sounds(0)
+```
+- **ReDim Sounds(0)**: This initializes the `Sounds` array with one element.
+
+```vb
+                Sounds(0) = SoundName
+```
+- **Sounds(0) = SoundName**: This stores the sound name in the first position of the array.
+
+```vb
+                Return True ' The sound was added.
+```
+- **Return True**: This returns `True`, indicating that the sound was successfully added.
+
+```vb
+            End If
+```
+- **End If**: This ends the conditional check for opening the sound file.
+
+```vb
+        ElseIf Not Sounds.Contains(SoundName) Then
+```
+- **ElseIf Not Sounds.Contains(SoundName) Then**: This checks if the sound is not already in the array.
+
+```vb
+            If SendMciCommand(CommandOpen, IntPtr.Zero) Then
+```
+- **If SendMciCommand(CommandOpen, IntPtr.Zero) Then**: This attempts to open the sound file again.
+
+```vb
+                Array.Resize(Sounds, Sounds.Length + 1)
+```
+- **Array.Resize(Sounds, Sounds.Length + 1)**: This increases the size of the `Sounds` array by one to accommodate the new sound.
+
+```vb
+                Sounds(Sounds.Length - 1) = SoundName
+```
+- **Sounds(Sounds.Length - 1) = SoundName**: This adds the new sound name to the last position in the array.
+
+```vb
+                Return True ' The sound was added.
+```
+- **Return True**: This returns `True`, indicating that the sound was successfully added.
+
+```vb
+            End If
+```
+- **End If**: This ends the conditional check for opening the sound file.
+
+```vb
+    End If
+```
+- **End If**: This ends the initial conditional check for sound name and file existence.
+
+```vb
+    Debug.Print($"{SoundName} not added to sounds.")
+```
+- **Debug.Print(...)**: This outputs a message to the debug console, indicating that the sound could not be added.
+
+```vb
+    Return False ' The sound was not added.
+```
+- **Return False**: This returns `False`, indicating that the sound was not added.
+
+### SetVolume Method
+
+```vb
+Public Function SetVolume(SoundName As String, Level As Integer) As Boolean
+```
+- **Public Function SetVolume(SoundName As String, Level As Integer) As Boolean**: This method sets the volume level for a specified sound.
+
+```vb
+    If Sounds IsNot Nothing AndAlso Sounds.Contains(SoundName) AndAlso Level >= 0 AndAlso Level <= 1000 Then
+```
+- **If Sounds IsNot Nothing AndAlso Sounds.Contains(SoundName) AndAlso Level >= 0 AndAlso Level <= 1000 Then**: This checks if the sounds array is not empty, if the sound exists, and if the volume level is within a valid range.
+
+```vb
+        Dim CommandVolume As String = $"setaudio {SoundName} volume to {Level}"
+```
+- **Dim CommandVolume As String = $"setaudio {SoundName} volume to {Level}"**: This constructs a command string to set the volume for the specified sound.
+
+```vb
+        Return SendMciCommand(CommandVolume, IntPtr.Zero) ' The volume was set.
+```
+- **Return SendMciCommand(CommandVolume, IntPtr.Zero)**: This sends the command to set the volume and returns the result.
+
+```vb
+    End If
+```
+- **End If**: This ends the conditional check for valid parameters.
+
+```vb
+    Debug.Print($"{SoundName} volume not set.")
+```
+- **Debug.Print(...)**: This outputs a message indicating that the volume could not be set.
+
+```vb
+    Return False ' The volume was not set.
+```
+- **Return False**: This returns `False`, indicating that the volume was not set.
+
+### LoopSound Method
+
+```vb
+Public Function LoopSound(SoundName As String) As Boolean
+```
+- **Public Function LoopSound(SoundName As String) As Boolean**: This method sets a specified sound to loop.
+
+```vb
+    If Sounds IsNot Nothing AndAlso Sounds.Contains(SoundName) Then
+```
+- **If Sounds IsNot Nothing AndAlso Sounds.Contains(SoundName) Then**: This checks if the sounds array is not empty and if the sound exists.
+
+```vb
+        Dim CommandSeekToStart As String = $"seek {SoundName}
+
+
