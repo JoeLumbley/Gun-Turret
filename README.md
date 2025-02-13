@@ -1,6 +1,6 @@
 # Gun Turret
 
-
+A application that simulates a gun turret, allowing for rotation and firing projectiles.
 
 ![002](https://github.com/user-attachments/assets/c54120b8-8c66-443f-981d-b5687e75f405)
 
@@ -10,7 +10,7 @@
 
 
 
-# Gun Turret Code Walkthrough
+# Code Walkthrough
 
 Welcome to the detailed walkthrough of the Gun Turret code! This document will guide you through the code structure, explaining each part line by line. Whether you're a beginner or looking to refresh your understanding, this lesson aims to make the concepts clear and accessible.
 
