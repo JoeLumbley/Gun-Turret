@@ -635,7 +635,6 @@ Public Class Form1
     Public Sub New()
         InitializeComponent()
 
-
         CreateSoundFiles()
 
         ReloadTime = TimeSpan.FromMilliseconds(100)
@@ -651,8 +650,6 @@ Public Class Form1
         Player.AddSound("ambientnoise", FilePath)
 
         Player.SetVolume("ambientnoise", 500)
-
-
 
         ' Set the center point to the middle of the form
         center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
@@ -681,7 +678,6 @@ Public Class Form1
         FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
 
         CreateFileFromResource(FilePath, My.Resources.Resource1.ambientnoise)
-
 
     End Sub
 
