@@ -77,39 +77,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Byte[].
         '''</summary>
-        Friend Shared ReadOnly Property gunshot001() As Byte()
-            Get
-                Dim obj As Object = ResourceManager.GetObject("gunshot001", resourceCulture)
-                Return CType(obj,Byte())
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Byte[].
-        '''</summary>
-        Friend Shared ReadOnly Property gunshot002() As Byte()
-            Get
-                Dim obj As Object = ResourceManager.GetObject("gunshot002", resourceCulture)
-                Return CType(obj,Byte())
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Byte[].
-        '''</summary>
         Friend Shared ReadOnly Property gunshot003() As Byte()
             Get
                 Dim obj As Object = ResourceManager.GetObject("gunshot003", resourceCulture)
-                Return CType(obj,Byte())
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Byte[].
-        '''</summary>
-        Friend Shared ReadOnly Property motorhum() As Byte()
-            Get
-                Dim obj As Object = ResourceManager.GetObject("motorhum", resourceCulture)
                 Return CType(obj,Byte())
             End Get
         End Property
