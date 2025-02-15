@@ -273,6 +273,31 @@ Public Structure ProjectileManager
 
     End Sub
 
+    Public Function IsColliding(rect As Rectangle) As Boolean
+
+        If Projectiles IsNot Nothing Then
+
+            For Each Projectile In Projectiles
+
+
+
+
+                Return rect.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height))
+
+                'g.FillRectangle(Projectile.Brush,
+                '                Projectile.NearestX,
+                '                Projectile.NearestY,
+                '                Projectile.NearestWidth,
+                '                Projectile.NearestHeight)
+
+            Next
+
+        End If
+
+        Return False
+
+    End Function
+
     Public Sub DrawProjectiles(g As Graphics)
 
         If Projectiles IsNot Nothing Then
@@ -290,6 +315,7 @@ Public Structure ProjectileManager
         End If
 
     End Sub
+
 
     Public Sub FireProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
 
@@ -630,6 +656,9 @@ Public Class Form1
 
     Private LastFireTime As DateTime = Now
 
+    Private Target As New Rectangle(0, 0, 25, 25)
+
+    Private TargetHit As Boolean
 
     ' Constructor for the form.
     Public Sub New()
@@ -721,6 +750,16 @@ Public Class Form1
 
         Projectiles.UpdateProjectiles(DeltaTime.ElapsedTime)
 
+        If Projectiles.IsColliding(Target) Then
+
+            TargetHit = True
+
+        Else
+
+            TargetHit = False
+
+        End If
+
         Invalidate()
 
     End Sub
@@ -735,6 +774,18 @@ Public Class Form1
         Projectiles.DrawProjectiles(e.Graphics)
 
         MyTurret.Draw(e.Graphics)
+
+
+
+        If TargetHit Then
+
+            e.Graphics.FillRectangle(Brushes.Red, Target)
+
+        Else
+
+            e.Graphics.FillRectangle(Brushes.Black, Target)
+
+        End If
 
     End Sub
 
@@ -801,6 +852,8 @@ Public Class Form1
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
 
         MyTurret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+
+        Target.Y = ClientSize.Height / 2
 
     End Sub
 
