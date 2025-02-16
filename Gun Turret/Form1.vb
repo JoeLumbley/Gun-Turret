@@ -285,7 +285,6 @@ Public Structure ProjectileManager
 
                     Colliding = True
 
-
                 End If
 
             Next
