@@ -277,7 +277,6 @@ Public Structure ProjectileManager
 
         Dim Colliding As Boolean
 
-
         If Projectiles IsNot Nothing Then
 
             For Each Projectile In Projectiles
