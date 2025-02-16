@@ -639,8 +639,11 @@ Public Class Form1
 
     Private MyPen As New Pen(Color.Black, 20)
 
-
     Private ADown As Boolean
+
+    Private LeftArrowDown As Boolean
+
+    Private RightArrowDown As Boolean
 
     Private ReloadTime As TimeSpan
 
@@ -784,6 +787,10 @@ Public Class Form1
         ' Rotate turret based on key press.
         If e.KeyCode = Keys.Right Then
 
+
+            ' RightArrowDown = True
+
+
             If MyTurret.AngleInDegrees < 360 Then
 
                 MyTurret.AngleInDegrees += 45 ' Rotate clockwise
@@ -797,6 +804,8 @@ Public Class Form1
         End If
 
         If e.KeyCode = Keys.Left Then
+
+            ' LeftArrowDown = True
 
             If MyTurret.AngleInDegrees > 0 Then
 
