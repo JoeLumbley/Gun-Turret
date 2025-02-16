@@ -757,6 +757,16 @@ Public Class Form1
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
 
+        If TargetHit Then
+
+            e.Graphics.FillRectangle(Brushes.Blue, Target)
+
+        Else
+
+            e.Graphics.FillRectangle(Brushes.Black, Target)
+
+        End If
+
         e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
 
         e.Graphics.DrawString("Use arrow keys to rotate turret. Press A to fire hold for automatic.", New Font("Segoe UI", 12), Brushes.Black, New PointF(0, 0))
@@ -764,18 +774,6 @@ Public Class Form1
         Projectiles.DrawProjectiles(e.Graphics)
 
         MyTurret.Draw(e.Graphics)
-
-
-
-        If TargetHit Then
-
-            e.Graphics.FillRectangle(Brushes.Red, Target)
-
-        Else
-
-            e.Graphics.FillRectangle(Brushes.Black, Target)
-
-        End If
 
     End Sub
 
