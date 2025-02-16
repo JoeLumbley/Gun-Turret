@@ -647,7 +647,13 @@ Public Class Form1
 
     Private ReloadTime As TimeSpan
 
+    Private TimeToNextRotation As TimeSpan
+
+
     Private LastFireTime As DateTime = Now
+
+    Private LastRotationTime As DateTime = Now
+
 
     Private Target As New Rectangle(0, 0, 100, 100)
 
@@ -661,6 +667,9 @@ Public Class Form1
 
         ReloadTime = TimeSpan.FromMilliseconds(100)
 
+        TimeToNextRotation = TimeSpan.FromMilliseconds(125)
+
+
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
 
         Player.AddOverlapping("gunshot", FilePath)
@@ -671,7 +680,14 @@ Public Class Form1
 
         Player.AddSound("ambientnoise", FilePath)
 
-        Player.SetVolume("ambientnoise", 200)
+        Player.SetVolume("ambientnoise", 10)
+
+
+        FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
+
+        Player.AddSound("explosion", FilePath)
+
+        Player.SetVolume("explosion", 200)
 
         ' Set the center point to the middle of the form
         center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
@@ -700,6 +716,11 @@ Public Class Form1
         FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
 
         CreateFileFromResource(FilePath, My.Resources.Resource1.ambientnoise)
+
+        FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
+
+        CreateFileFromResource(FilePath, My.Resources.Resource1.explosion)
+
 
     End Sub
 
@@ -741,11 +762,39 @@ Public Class Form1
 
         End If
 
+        If LeftArrowDown Then
+
+            Dim ElapsedTime As TimeSpan = Now - LastRotationTime
+
+            If ElapsedTime > TimeToNextRotation Then
+
+                If MyTurret.AngleInDegrees > 0 Then
+
+                    MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
+
+                Else
+
+                    MyTurret.AngleInDegrees = 315
+
+                End If
+
+                LastRotationTime = Now
+
+            End If
+
+        End If
+
         Projectiles.UpdateProjectiles(DeltaTime.ElapsedTime)
 
         If Projectiles.IsColliding(Target) Then
 
             TargetHit = True
+
+            If Not Player.IsPlaying("explosion") Then
+
+                Player.PlaySound("explosion")
+
+            End If
 
         Else
 
@@ -788,7 +837,7 @@ Public Class Form1
         If e.KeyCode = Keys.Right Then
 
 
-            ' RightArrowDown = True
+            RightArrowDown = True
 
 
             If MyTurret.AngleInDegrees < 360 Then
@@ -805,17 +854,17 @@ Public Class Form1
 
         If e.KeyCode = Keys.Left Then
 
-            ' LeftArrowDown = True
+            LeftArrowDown = True
 
-            If MyTurret.AngleInDegrees > 0 Then
+            'If MyTurret.AngleInDegrees > 0 Then
 
-                MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
+            '    MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
 
-            Else
+            'Else
 
-                MyTurret.AngleInDegrees = 315
+            '    MyTurret.AngleInDegrees = 315
 
-            End If
+            'End If
 
         End If
 
@@ -832,9 +881,13 @@ Public Class Form1
 
         If e.KeyCode = Keys.Right Then
 
+            RightArrowDown = False
+
         End If
 
         If e.KeyCode = Keys.Left Then
+
+            LeftArrowDown = False
 
         End If
 

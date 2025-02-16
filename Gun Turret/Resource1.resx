@@ -121,6 +121,9 @@
   <data name="ambientnoise" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sounds\ambientnoise.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Sounds\explosion.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="gunshot003" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Sounds\gunshot003.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
