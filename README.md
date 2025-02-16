@@ -81,21 +81,35 @@ This line calls another method, `DrawLineFromCenterGivenLenghtAndAngle`, to draw
 ### Line Drawing Method
 
 ```vb
-    Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
+    Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics,
+                                                      pen As Pen,
+                                                      center As PointF,
+                                                      length As Integer,
+                                                      angleInDegrees As Single)
+
         Dim angleInRadians As Single = angleInDegrees * (Math.PI / 180)
+
 ```
+
 This private method calculates the endpoint of the turret's barrel based on the angle provided. It converts degrees to radians since trigonometric functions in VB use radians.
 
 ```vb
         Dim EndPoint As PointF
-        EndPoint = New PointF(center.X + length * Cos(angleInRadians), center.Y + length * Sin(angleInRadians))
+
+        EndPoint = New PointF(center.X + length * Cos(angleInRadians),
+                              center.Y + length * Sin(angleInRadians))
+
 ```
+
 Using trigonometry, it calculates the endpoint of the barrel based on the center point and the length of the barrel.
 
 ```vb
         g.DrawLine(pen, center, EndPoint)
+
     End Sub
+
 End Structure
+
 ```
 Finally, it draws the line (the barrel) from the center to the calculated endpoint.
 
