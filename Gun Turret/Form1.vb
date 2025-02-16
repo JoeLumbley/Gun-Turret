@@ -273,7 +273,7 @@ Public Structure ProjectileManager
 
     End Sub
 
-    Public Function IsColliding(rect As Rectangle) As Boolean
+    Public Function IsColliding(rectangle As Rectangle) As Boolean
 
         Dim Colliding As Boolean
 
@@ -281,7 +281,7 @@ Public Structure ProjectileManager
 
             For Each Projectile In Projectiles
 
-                If rect.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
+                If rectangle.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
 
                     Colliding = True
 
@@ -295,13 +295,13 @@ Public Structure ProjectileManager
 
     End Function
 
-    Public Sub DrawProjectiles(g As Graphics)
+    Public Sub DrawProjectiles(graphics As Graphics)
 
         If Projectiles IsNot Nothing Then
 
             For Each Projectile In Projectiles
 
-                g.FillRectangle(Projectile.Brush,
+                graphics.FillRectangle(Projectile.Brush,
                                 Projectile.NearestX,
                                 Projectile.NearestY,
                                 Projectile.NearestWidth,
@@ -312,7 +312,6 @@ Public Structure ProjectileManager
         End If
 
     End Sub
-
 
     Public Sub FireProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
 
@@ -481,17 +480,12 @@ Public Structure AudioPlayer
         If Sounds IsNot Nothing AndAlso Sounds.Contains(SoundName) Then
             ' We have sounds and the sound is in the array.
 
-            'Dim CommandSeekToStart As String = $"seek {SoundName} to start"
+            Dim CommandSeekToStart As String = $"seek {SoundName} to start"
 
-            'Dim CommandPlay As String = $"play {SoundName} notify"
+            Dim CommandPlay As String = $"play {SoundName} notify"
 
-            Dim CommandPlay As String = $"play {SoundName} from 0"
-
-            'Return SendMciCommand(CommandSeekToStart, IntPtr.Zero) AndAlso
-            '       SendMciCommand(CommandPlay, IntPtr.Zero) ' The sound is playing.
-
-            Return SendMciCommand(CommandPlay, IntPtr.Zero) ' The sound is playing.
-
+            Return SendMciCommand(CommandSeekToStart, IntPtr.Zero) AndAlso
+                   SendMciCommand(CommandPlay, IntPtr.Zero) ' The sound is playing.
 
         End If
 
@@ -626,7 +620,6 @@ Public Structure AudioPlayer
     End Sub
 
 End Structure
-
 
 Public Class Form1
 
