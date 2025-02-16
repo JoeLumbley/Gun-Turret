@@ -275,26 +275,25 @@ Public Structure ProjectileManager
 
     Public Function IsColliding(rect As Rectangle) As Boolean
 
+        Dim Colliding As Boolean
+
+
         If Projectiles IsNot Nothing Then
 
             For Each Projectile In Projectiles
 
+                If rect.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
+
+                    Colliding = True
 
 
-
-                Return rect.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height))
-
-                'g.FillRectangle(Projectile.Brush,
-                '                Projectile.NearestX,
-                '                Projectile.NearestY,
-                '                Projectile.NearestWidth,
-                '                Projectile.NearestHeight)
+                End If
 
             Next
 
         End If
 
-        Return False
+        Return Colliding
 
     End Function
 
@@ -656,7 +655,7 @@ Public Class Form1
 
     Private LastFireTime As DateTime = Now
 
-    Private Target As New Rectangle(0, 0, 25, 25)
+    Private Target As New Rectangle(0, 0, 100, 100)
 
     Private TargetHit As Boolean
 
@@ -853,7 +852,7 @@ Public Class Form1
 
         MyTurret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
-        Target.Y = ClientSize.Height / 2
+        Target.Y = ClientSize.Height / 2 - Target.Height / 2
 
     End Sub
 
