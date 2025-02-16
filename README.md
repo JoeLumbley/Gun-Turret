@@ -22,15 +22,6 @@ A application that simulates a gun turret, allowing for rotation and firing proj
 
 # Code Walkthrough
 
-Welcome to this detailed walkthrough of a code structure that simulates a turret and projectile manager. This code is designed to create a simple graphical representation of a turret that can fire projectiles. We'll break down each part of the code, explaining what it does line by line.
-
-## Table of Contents
-1. [Turret Structure](#turret-structure)
-2. [ProjectileManager Structure](#projectilemanager-structure)
-3. [Form1 Class](#form1-class)
-4. [Conclusion](#conclusion)
-
----
 
 ## Turret Structure
 
@@ -90,21 +81,35 @@ This line calls another method, `DrawLineFromCenterGivenLenghtAndAngle`, to draw
 ### Line Drawing Method
 
 ```vb
-    Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
+    Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics,
+                                                      pen As Pen,
+                                                      center As PointF,
+                                                      length As Integer,
+                                                      angleInDegrees As Single)
+
         Dim angleInRadians As Single = angleInDegrees * (Math.PI / 180)
+
 ```
+
 This private method calculates the endpoint of the turret's barrel based on the angle provided. It converts degrees to radians since trigonometric functions in VB use radians.
 
 ```vb
         Dim EndPoint As PointF
-        EndPoint = New PointF(center.X + length * Cos(angleInRadians), center.Y + length * Sin(angleInRadians))
+
+        EndPoint = New PointF(center.X + length * Cos(angleInRadians),
+                              center.Y + length * Sin(angleInRadians))
+
 ```
+
 Using trigonometry, it calculates the endpoint of the barrel based on the center point and the length of the barrel.
 
 ```vb
         g.DrawLine(pen, center, EndPoint)
+
     End Sub
+
 End Structure
+
 ```
 Finally, it draws the line (the barrel) from the center to the calculated endpoint.
 
@@ -446,7 +451,13 @@ Feel free to experiment with the code, change parameters, and see how it affects
 
 
 
+Welcome to this detailed walkthrough of a code structure that simulates a turret and projectile manager. This code is designed to create a simple graphical representation of a turret that can fire projectiles. We'll break down each part of the code, explaining what it does line by line.
 
+## Table of Contents
+1. [Turret Structure](#turret-structure)
+2. [ProjectileManager Structure](#projectilemanager-structure)
+3. [Form1 Class](#form1-class)
+4. [Conclusion](#conclusion)
 
 
 
