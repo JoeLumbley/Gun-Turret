@@ -22,15 +22,6 @@ A application that simulates a gun turret, allowing for rotation and firing proj
 
 # Code Walkthrough
 
-Welcome to this detailed walkthrough of a code structure that simulates a turret and projectile manager. This code is designed to create a simple graphical representation of a turret that can fire projectiles. We'll break down each part of the code, explaining what it does line by line.
-
-## Table of Contents
-1. [Turret Structure](#turret-structure)
-2. [ProjectileManager Structure](#projectilemanager-structure)
-3. [Form1 Class](#form1-class)
-4. [Conclusion](#conclusion)
-
----
 
 ## Turret Structure
 
@@ -446,7 +437,13 @@ Feel free to experiment with the code, change parameters, and see how it affects
 
 
 
+Welcome to this detailed walkthrough of a code structure that simulates a turret and projectile manager. This code is designed to create a simple graphical representation of a turret that can fire projectiles. We'll break down each part of the code, explaining what it does line by line.
 
+## Table of Contents
+1. [Turret Structure](#turret-structure)
+2. [ProjectileManager Structure](#projectilemanager-structure)
+3. [Form1 Class](#form1-class)
+4. [Conclusion](#conclusion)
 
 
 
