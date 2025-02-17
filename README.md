@@ -179,6 +179,7 @@ Public AngleInDegrees As Single
 Public Creation As DateTime
 
 ```
+
 These properties define the characteristics of a projectile:
 - **X, Y**: Position of the projectile.
 - **Width, Height**: Dimensions of the projectile.
@@ -189,7 +190,7 @@ These properties define the characteristics of a projectile:
 - **AngleInDegrees**: The angle at which the projectile is fired.
 - **Creation**: The time when the projectile was created.
 
-[Back to Index](#index-of-sections-and-subsections)
+[Index](#index-of-sections-and-subsections)
 
 ##### 1.2.1.2 Constructor
 
