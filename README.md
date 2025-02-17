@@ -86,7 +86,10 @@ Dim Diameter As Integer = 75
 We define a diameter for the turret's base.
 
 ```vb
-g.FillEllipse(Brushes.Gray, New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter))
+g.FillEllipse(Brushes.Gray,
+New Rectangle(Center.X - Diameter / 2,
+              Center.Y - Diameter / 2,
+              Diameter, Diameter))
 ```
 This line draws a gray ellipse (circle) at the turret's center, calculated to center the ellipse based on its diameter.
 
