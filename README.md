@@ -100,7 +100,13 @@ This calls another method to draw the barrel of the turret based on its center, 
 #### 1.1.4 Line Drawing Method
 
 ```vb
-Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
+
+Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics,
+                                                  pen As Pen,
+                                                  center As PointF,
+                                                  length As Integer,
+                                                  angleInDegrees As Single)
+
 ```
 This private method calculates the endpoint of the turret's barrel based on the angle provided.
 
@@ -115,6 +121,7 @@ This converts the angle from degrees to radians because trigonometric functions 
 ```vb
 
 Dim EndPoint As PointF
+
 EndPoint = New PointF(center.X + length * Cos(angleInRadians),
                       center.Y + length * Sin(angleInRadians))
 
