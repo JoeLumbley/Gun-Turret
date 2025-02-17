@@ -358,7 +358,7 @@ Feel free to experiment with the code, change parameters, and see how it affects
     - [1.2.1 Projectile Structure](#projectile-structure)
       - [1.2.1.1 Member Variables](#member-variables-1)
       - [1.2.1.2 Constructor](#constructor-1)
-      - [1.2.1.3 Velocity Calculation](#velocity-calculation)
+      - [1.2.1.3 Velocity Calculation](#1213-velocity-calculation)
       - [1.2.1.4 UpdateMovement Method](#updatemovement-method)
       - [1.2.1.5 Rounding Functions](#rounding-functions)
     - [1.2.2 Projectile Management](#projectile-management)
