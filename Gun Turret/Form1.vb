@@ -302,9 +302,7 @@ Public Structure ProjectileManager
 
         If Projectiles IsNot Nothing Then
 
-            ' To prevent a slow down and to reduce memory use.
-            ' Remove projectiles past their life time.
-            Projectiles = Projectiles.Where(Function(p) (Date.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
+            RemoveProjectilesPastTheirLifeTime()
 
             For Index As Integer = 0 To Projectiles.Length - 1
 
@@ -313,6 +311,28 @@ Public Structure ProjectileManager
             Next
 
         End If
+
+    End Sub
+
+    Private Sub RemoveProjectilesPastTheirLifeTime()
+        ' To prevent a slow down and to reduce memory use.
+
+        Dim lifeTime As Integer = LifeTimeInSeconds
+
+        ' Filter projectiles past their life time.
+        Projectiles = Projectiles.Where(Function(p) (Date.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
+
+        ' Function(p) (DateTime.Now - p.Creation).TotalSeconds < lifeTime.
+
+        ' This is a LINQ (Language-Integrated Query) lambda expression.
+
+        ' The Where method filters the Projectiles array based on the condition
+        ' provided by the lambda function.
+
+        ' (Date.Now - p.Creation).TotalSeconds < lifeTime)
+
+        ' Using LINQ with lambda expressions is a powerful way to perform queries
+        ' and manipulate collections in a concise and readable manner.
 
     End Sub
 
