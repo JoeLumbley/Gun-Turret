@@ -634,15 +634,47 @@ Public Class Form1
 
         CreateSoundFiles()
 
+        InitializeSounds()
+
+
         ReloadTime = TimeSpan.FromMilliseconds(100)
 
         TimeToNextRotation = TimeSpan.FromMilliseconds(125)
+
+
+
+        ' Set the center point to the middle of the form
+        ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+
+        ' Enable double buffering to reduce flickering
+        Me.DoubleBuffered = True
+
+        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
+
+        InitializeTimer()
+
+        Text = "Gun Turret - Code with Joe"
+
+        Player.LoopSound("ambientnoise")
+
+    End Sub
+
+    Private Sub InitializeTimer()
+
+        Timer1.Interval = 15
+
+        Timer1.Start()
+
+    End Sub
+
+    Private Sub InitializeSounds()
 
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
 
         Player.AddOverlapping("gunshot", FilePath)
 
         Player.SetVolumeOverlapping("gunshot", 1000)
+
 
         FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
 
@@ -656,22 +688,6 @@ Public Class Form1
         Player.AddSound("explosion", FilePath)
 
         Player.SetVolume("explosion", 200)
-
-        ' Set the center point to the middle of the form
-        ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
-
-        ' Enable double buffering to reduce flickering
-        Me.DoubleBuffered = True
-
-        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
-
-        Timer1.Interval = 15
-
-        Timer1.Start()
-
-        Text = "Gun Turret - Code with Joe"
-
-        Player.LoopSound("ambientnoise")
 
     End Sub
 
