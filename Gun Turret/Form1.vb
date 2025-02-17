@@ -284,25 +284,15 @@ Public Structure ProjectileManager
 
         End If
 
-        Dim index As Integer = Projectiles.Length - 1
+        Dim Index As Integer = Projectiles.Length - 1
 
-        Projectiles(index) = New Projectile(Brush, Size.Width, Size.Height, MuzzleVelocity, CenterOfFire, BarrelLength, AngleInDegrees)
-
-
-
-        'If Projectiles IsNot Nothing Then
-
-        '    Array.Resize(Projectiles, Projectiles.Length + 1)
-
-        'Else
-
-        '    ReDim Projectiles(0)
-
-        'End If
-
-        'Dim Index As Integer = Projectiles.Length - 1
-
-        'Projectiles(Index) = New Projectile(Brush, Size.Width, Size.Height, MuzzleVelocity, CenterOfFire, BarrelLength, AngleInDegrees)
+        Projectiles(Index) = New Projectile(Brush,
+                                            Size.Width,
+                                            Size.Height,
+                                            MuzzleVelocity,
+                                            CenterOfFire,
+                                            BarrelLength,
+                                            AngleInDegrees)
 
     End Sub
 
