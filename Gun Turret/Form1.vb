@@ -304,7 +304,7 @@ Public Structure ProjectileManager
 
             ' To prevent a slow down and to reduce memory use.
             ' Remove projectiles past their life time.
-            Projectiles = Projectiles.Where(Function(p) (DateTime.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
+            Projectiles = Projectiles.Where(Function(p) (Date.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
 
             For Index As Integer = 0 To Projectiles.Length - 1
 
