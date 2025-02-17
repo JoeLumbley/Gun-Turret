@@ -302,17 +302,23 @@ Public Structure ProjectileManager
 
         If Projectiles IsNot Nothing Then
 
+            ' To prevent a slow down and to reduce memory use.
             ' Remove projectiles past their life time.
-            ' To prevent a slow down as the number of projectiles grows and to reduce memory use.
             Projectiles = Projectiles.Where(Function(p) (DateTime.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
 
-            For Each projectile In Projectiles
-
-                Dim Index As Integer = Array.IndexOf(Projectiles, projectile)
+            For Index As Integer = 0 To Projectiles.Length - 1
 
                 Projectiles(Index).UpdateMovement(deltaTime)
 
             Next
+
+            'For Each projectile In Projectiles
+
+            '    Dim Index As Integer = Array.IndexOf(Projectiles, projectile)
+
+            '    Projectiles(Index).UpdateMovement(deltaTime)
+
+            'Next
 
         End If
 
