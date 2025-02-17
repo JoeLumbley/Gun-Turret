@@ -334,6 +334,8 @@ Public Structure ProjectileManager
         ' Using LINQ with lambda expressions is a powerful way to perform queries
         ' and manipulate collections in a concise and readable manner.
 
+        ' LINQ - https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/linq/
+
     End Sub
 
 End Structure
