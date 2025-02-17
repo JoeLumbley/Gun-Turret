@@ -602,19 +602,13 @@ Public Class Form1
 
     Private Player As AudioPlayer
 
-    Private MyTurret As Turret
+    Private Turret As Turret
 
     Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 100, 100, 9)
 
     Private DeltaTime As DeltaTimeStructure
 
-    ' Angle for the rotating line
-    'Private angle As Single = 0
-
-    ' Center point for rotation
     Private ClientCenter As PointF
-
-    'Private MyPen As New Pen(Color.Black, 20)
 
     Private ADown As Boolean
 
@@ -626,11 +620,9 @@ Public Class Form1
 
     Private TimeToNextRotation As TimeSpan
 
-
     Private LastFireTime As DateTime = Now
 
     Private LastRotationTime As DateTime = Now
-
 
     Private Target As New Rectangle(0, 0, 100, 100)
 
@@ -645,7 +637,6 @@ Public Class Form1
         ReloadTime = TimeSpan.FromMilliseconds(100)
 
         TimeToNextRotation = TimeSpan.FromMilliseconds(125)
-
 
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
 
@@ -672,7 +663,7 @@ Public Class Form1
         ' Enable double buffering to reduce flickering
         Me.DoubleBuffered = True
 
-        MyTurret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
+        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
 
         Timer1.Interval = 15
 
@@ -731,7 +722,7 @@ Public Class Form1
 
                 Player.PlayOverlapping("gunshot")
 
-                Projectiles.FireProjectile(MyTurret.Center, MyTurret.AngleInDegrees)
+                Projectiles.FireProjectile(Turret.Center, Turret.AngleInDegrees)
 
                 LastFireTime = Now
 
@@ -745,13 +736,13 @@ Public Class Form1
 
             If ElapsedTime > TimeToNextRotation Then
 
-                If MyTurret.AngleInDegrees > 0 Then
+                If Turret.AngleInDegrees > 0 Then
 
-                    MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
+                    Turret.AngleInDegrees -= 45 ' Rotate clockwise
 
                 Else
 
-                    MyTurret.AngleInDegrees = 315
+                    Turret.AngleInDegrees = 315
 
                 End If
 
@@ -772,13 +763,13 @@ Public Class Form1
 
             If ElapsedTime > TimeToNextRotation Then
 
-                If MyTurret.AngleInDegrees < 360 Then
+                If Turret.AngleInDegrees < 360 Then
 
-                    MyTurret.AngleInDegrees += 45 ' Rotate clockwise
+                    Turret.AngleInDegrees += 45 ' Rotate clockwise
 
                 Else
 
-                    MyTurret.AngleInDegrees = 45
+                    Turret.AngleInDegrees = 45
 
                 End If
 
@@ -832,7 +823,7 @@ Public Class Form1
 
         Projectiles.DrawProjectiles(e.Graphics)
 
-        MyTurret.Draw(e.Graphics)
+        Turret.Draw(e.Graphics)
 
     End Sub
 
@@ -908,7 +899,7 @@ Public Class Form1
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
 
-        MyTurret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+        Turret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
         Target.Y = ClientSize.Height / 2 - Target.Height / 2
 
