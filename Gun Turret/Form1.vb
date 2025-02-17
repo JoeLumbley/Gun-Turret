@@ -322,7 +322,7 @@ Public Structure ProjectileManager
         ' Filter projectiles past their life time.
         Projectiles = Projectiles.Where(Function(p) (Date.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
 
-        ' Function(p) (DateTime.Now - p.Creation).TotalSeconds < lifeTime.
+        ' Projectiles.Where(Function(p) (Date.Now - p.Creation).TotalSeconds < lifeTime)
 
         ' This is a LINQ (Language-Integrated Query) lambda expression.
 
