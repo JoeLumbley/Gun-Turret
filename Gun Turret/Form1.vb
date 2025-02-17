@@ -242,25 +242,31 @@ Public Structure ProjectileManager
 
     Public Function IsColliding(rectangle As Rectangle) As Boolean
 
-        Dim Colliding As Boolean
-
         If Projectiles IsNot Nothing Then
 
-            For Each Projectile In Projectiles
-
-                If rectangle.IntersectsWith(Projectile.Rectangle) Then
-
-                    Colliding = True
-
-                    Exit For
-
-                End If
-
-            Next
+            Return Projectiles.Any(Function(p) p.Rectangle().IntersectsWith(rectangle))
 
         End If
 
-        Return Colliding
+        'Dim Colliding As Boolean
+
+        'If Projectiles IsNot Nothing Then
+
+        '    For Each Projectile In Projectiles
+
+        '        If rectangle.IntersectsWith(Projectile.Rectangle) Then
+
+        '            Colliding = True
+
+        '            Exit For
+
+        '        End If
+
+        '    Next
+
+        'End If
+
+        Return False
 
     End Function
 
@@ -275,21 +281,6 @@ Public Structure ProjectileManager
             Next
 
         End If
-
-
-        'If Projectiles IsNot Nothing Then
-
-        '    For Each Projectile In Projectiles
-
-        '        graphics.FillRectangle(Projectile.Brush,
-        '                               Projectile.NearestX,
-        '                               Projectile.NearestY,
-        '                               Projectile.NearestWidth,
-        '                               Projectile.NearestHeight)
-
-        '    Next
-
-        'End If
 
     End Sub
 
