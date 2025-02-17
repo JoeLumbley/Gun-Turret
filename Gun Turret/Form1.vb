@@ -248,24 +248,6 @@ Public Structure ProjectileManager
 
         End If
 
-        'Dim Colliding As Boolean
-
-        'If Projectiles IsNot Nothing Then
-
-        '    For Each Projectile In Projectiles
-
-        '        If rectangle.IntersectsWith(Projectile.Rectangle) Then
-
-        '            Colliding = True
-
-        '            Exit For
-
-        '        End If
-
-        '    Next
-
-        'End If
-
         Return False
 
     End Function
