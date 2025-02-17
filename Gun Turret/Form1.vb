@@ -121,6 +121,23 @@ End Structure
 
 Public Structure ProjectileManager
 
+    Public Brush As Brush
+    Public BarrelLength As Integer
+    Public MuzzleVelocity As Single
+    Public Size As Size
+    Public LifeTimeInSeconds As Integer
+
+
+    Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLength As Integer, lifeTimeInSeconds As Integer)
+
+        Me.Brush = brush
+        Me.BarrelLength = barrelLength
+        Me.MuzzleVelocity = muzzleVelocity
+        Me.Size = size
+        Me.LifeTimeInSeconds = lifeTimeInSeconds
+
+    End Sub
+
     Private Structure Projectile
 
         ' Array of projectiles
@@ -223,34 +240,29 @@ Public Structure ProjectileManager
 
     Private Projectiles() As Projectile
 
-    Public Brush As Brush
-    Public BarrelLength As Integer
-    Public MuzzleVelocity As Single
-    Public Size As Size
-    Public LifeTimeInSeconds As Integer
+    Public Sub FireProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
 
-
-    Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLength As Integer, lifeTimeInSeconds As Integer)
-
-        Me.Brush = brush
-        Me.BarrelLength = barrelLength
-        Me.MuzzleVelocity = muzzleVelocity
-        Me.Size = size
-        Me.LifeTimeInSeconds = lifeTimeInSeconds
+        AddProjectile(CenterOfFire, AngleInDegrees)
 
     End Sub
 
-    Public Function IsColliding(rectangle As Rectangle) As Boolean
+    Public Sub UpdateProjectiles(deltaTime As TimeSpan)
+
+        Dim lifeTime As Integer = LifeTimeInSeconds
 
         If Projectiles IsNot Nothing Then
 
-            Return Projectiles.Any(Function(p) p.Rectangle().IntersectsWith(rectangle))
+            RemoveProjectilesPastTheirLifeTime()
+
+            For Index As Integer = 0 To Projectiles.Length - 1
+
+                Projectiles(Index).UpdateMovement(deltaTime)
+
+            Next
 
         End If
 
-        Return False
-
-    End Function
+    End Sub
 
     Public Sub DrawProjectiles(graphics As Graphics)
 
@@ -263,12 +275,6 @@ Public Structure ProjectileManager
             Next
 
         End If
-
-    End Sub
-
-    Public Sub FireProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
-
-        AddProjectile(CenterOfFire, AngleInDegrees)
 
     End Sub
 
@@ -296,23 +302,27 @@ Public Structure ProjectileManager
 
     End Sub
 
-    Public Sub UpdateProjectiles(deltaTime As TimeSpan)
 
-        Dim lifeTime As Integer = LifeTimeInSeconds
+    Public Function IsColliding(rectangle As Rectangle) As Boolean
 
         If Projectiles IsNot Nothing Then
 
-            RemoveProjectilesPastTheirLifeTime()
-
-            For Index As Integer = 0 To Projectiles.Length - 1
-
-                Projectiles(Index).UpdateMovement(deltaTime)
-
-            Next
+            Return Projectiles.Any(Function(p) p.Rectangle().IntersectsWith(rectangle))
 
         End If
 
-    End Sub
+        ' Projectiles.Any(Function(p) p.Rectangle().IntersectsWith(rectangle))
+
+        ' This is a LINQ (Language-Integrated Query) lambda expression.
+
+        ' The Any method with a lambda expression is a concise and efficient
+        ' way to check if any projectile intersects with the given rectangle.
+
+        ' Function(p) p.Rectangle().IntersectsWith(rectangle)
+
+        Return False
+
+    End Function
 
     Private Sub RemoveProjectilesPastTheirLifeTime()
         ' To prevent a slow down and to reduce memory use.
@@ -594,17 +604,17 @@ Public Class Form1
 
     Private MyTurret As Turret
 
-    Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 100, 100, 2)
+    Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 100, 100, 9)
 
     Private DeltaTime As DeltaTimeStructure
 
     ' Angle for the rotating line
-    Private angle As Single = 0
+    'Private angle As Single = 0
 
     ' Center point for rotation
-    Private center As PointF
+    Private ClientCenter As PointF
 
-    Private MyPen As New Pen(Color.Black, 20)
+    'Private MyPen As New Pen(Color.Black, 20)
 
     Private ADown As Boolean
 
@@ -657,12 +667,12 @@ Public Class Form1
         Player.SetVolume("explosion", 200)
 
         ' Set the center point to the middle of the form
-        center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+        ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
         ' Enable double buffering to reduce flickering
         Me.DoubleBuffered = True
 
-        MyTurret = New Turret(MyPen, center, 100, angle)
+        MyTurret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
 
         Timer1.Interval = 15
 
