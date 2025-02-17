@@ -616,9 +616,9 @@ Public Class Form1
 
     Private RightArrowDown As Boolean
 
-    Private ReloadTime As TimeSpan
+    Private ReloadTime As TimeSpan = TimeSpan.FromMilliseconds(100)
 
-    Private TimeToNextRotation As TimeSpan
+    Private TimeToNextRotation As TimeSpan = TimeSpan.FromMilliseconds(125)
 
     Private LastFireTime As DateTime = Now
 
@@ -636,26 +636,24 @@ Public Class Form1
 
         InitializeSounds()
 
+        'ReloadTime = TimeSpan.FromMilliseconds(100)
 
-        ReloadTime = TimeSpan.FromMilliseconds(100)
-
-        TimeToNextRotation = TimeSpan.FromMilliseconds(125)
-
+        'TimeToNextRotation = TimeSpan.FromMilliseconds(125)
 
 
-        ' Set the center point to the middle of the form
-        ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
         ' Enable double buffering to reduce flickering
         Me.DoubleBuffered = True
 
-        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
-
-        InitializeTimer()
-
         Text = "Gun Turret - Code with Joe"
 
+        ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+
+        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
+
         Player.LoopSound("ambientnoise")
+
+        InitializeTimer()
 
     End Sub
 
