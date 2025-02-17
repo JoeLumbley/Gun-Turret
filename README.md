@@ -2,7 +2,6 @@
 
 A application that simulates a gun turret, allowing for rotation and firing projectiles.
 
-![002](https://github.com/user-attachments/assets/c54120b8-8c66-443f-981d-b5687e75f405)
 
 
 
@@ -10,6 +9,7 @@ A application that simulates a gun turret, allowing for rotation and firing proj
 
 
 
+![003](https://github.com/user-attachments/assets/c18c3f46-d42b-4d7e-8c45-300853543fc7)
 
 
 
