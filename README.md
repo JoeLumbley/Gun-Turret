@@ -52,7 +52,7 @@ Public AngleInDegrees As Single
 - **Length**: An integer representing the length of the turret's barrel.
 - **AngleInDegrees**: A single-precision floating-point number that specifies the angle of the turret in degrees.
 
-[Back to Index](#index-of-sections-and-subsections)
+[Index](#index-of-sections-and-subsections)
 
 #### 1.1.2 Constructor
 
@@ -66,7 +66,7 @@ End Sub
 ```
 This constructor initializes the turret's properties. The `Me` keyword refers to the current instance of the structure.
 
-[Back to Index](#index-of-sections-and-subsections)
+[Index](#index-of-sections-and-subsections)
 
 #### 1.1.3 Draw Method
 
@@ -105,7 +105,7 @@ DrawLineFromCenterGivenLenghtAndAngle(g, Pen, Center, Length, AngleInDegrees)
 
 This calls another method to draw the barrel of the turret based on its center, length, and angle.
 
-[Back to Index](#index-of-sections-and-subsections)
+[Index](#index-of-sections-and-subsections)
 
 #### 1.1.4 Line Drawing Method
 
@@ -148,12 +148,14 @@ g.DrawLine(pen, center, EndPoint)
 
 Finally, this line draws the line (the barrel) from the center to the calculated endpoint.
 
-[Back to Index](#index-of-sections-and-subsections)
+[Index](#index-of-sections-and-subsections)
 
 ### 1.2 ProjectileManager Structure
 
 ```vb
+
 Public Structure ProjectileManager
+
 ```
 This structure manages the projectiles fired from the turret.
 
@@ -167,6 +169,7 @@ Inside `ProjectileManager`, we define another structure called `Projectile`, whi
 ##### 1.2.1.1 Member Variables
 
 ```vb
+
 Public X, Y, Width, Height As Double
 Public Velocity As PointF
 Public Brush As Brush
@@ -174,6 +177,7 @@ Public Center As PointF
 Public Length As Integer
 Public AngleInDegrees As Single
 Public Creation As DateTime
+
 ```
 These properties define the characteristics of a projectile:
 - **X, Y**: Position of the projectile.
@@ -190,7 +194,15 @@ These properties define the characteristics of a projectile:
 ##### 1.2.1.2 Constructor
 
 ```vb
-Public Sub New(brush As Brush, width As Double, height As Double, velocity As Single, center As PointF, length As Integer, angleInDegrees As Single)
+
+Public Sub New(brush As Brush,
+               width As Double,
+               height As Double,
+               velocity As Single,
+               center As PointF,
+               length As Integer,
+               angleInDegrees As Single)
+
 ```
 This constructor initializes a new projectile with the provided parameters.
 
