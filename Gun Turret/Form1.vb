@@ -784,6 +784,36 @@ Public Class Form1
 
         End If
 
+
+
+
+
+
+        If RightArrowDown Then
+
+            Dim ElapsedTime As TimeSpan = Now - LastRotationTime
+
+            If ElapsedTime > TimeToNextRotation Then
+
+                If MyTurret.AngleInDegrees < 360 Then
+
+                    MyTurret.AngleInDegrees += 45 ' Rotate clockwise
+
+                Else
+
+                    MyTurret.AngleInDegrees = 45
+
+                End If
+
+                LastRotationTime = Now
+
+            End If
+
+        End If
+
+
+
+
         Projectiles.UpdateProjectiles(DeltaTime.ElapsedTime)
 
         If Projectiles.IsColliding(Target) Then
@@ -840,15 +870,15 @@ Public Class Form1
             RightArrowDown = True
 
 
-            If MyTurret.AngleInDegrees < 360 Then
+            'If MyTurret.AngleInDegrees < 360 Then
 
-                MyTurret.AngleInDegrees += 45 ' Rotate clockwise
+            '    MyTurret.AngleInDegrees += 45 ' Rotate clockwise
 
-            Else
+            'Else
 
-                MyTurret.AngleInDegrees = 45
+            '    MyTurret.AngleInDegrees = 45
 
-            End If
+            'End If
 
         End If
 
