@@ -298,29 +298,48 @@ Public Structure ProjectileManager
 
     Public Sub UpdateProjectiles(deltaTime As TimeSpan)
 
-        Dim ElapsedTime As TimeSpan
+        Dim lifeTime As Integer = LifeTimeInSeconds
 
         If Projectiles IsNot Nothing Then
 
-            For Each Projectile In Projectiles
+            ' Remove projectiles past thier life time.
+            ' To prevent a slow down as the number of projectiles grows and to reduce memory use.
+            Projectiles = Projectiles.Where(Function(p) (DateTime.Now - p.Creation).TotalSeconds < lifeTime).ToArray()
 
-                Dim Index As Integer = Array.IndexOf(Projectiles, Projectile)
+            For Each projectile In Projectiles
 
-                ElapsedTime = Now - Projectile.Creation
+                Dim Index As Integer = Array.IndexOf(Projectiles, projectile)
 
-                If ElapsedTime < TimeSpan.FromSeconds(LifeTimeInSeconds) Then
-
-                    Projectiles(Index).UpdateMovement(deltaTime)
-
-                Else
-
-                    RemoveProjectile(Index)
-
-                End If
+                Projectiles(Index).UpdateMovement(deltaTime)
 
             Next
 
         End If
+
+
+        'Dim ElapsedTime As TimeSpan
+
+        'If Projectiles IsNot Nothing Then
+
+        '    For Each Projectile In Projectiles
+
+        '        Dim Index As Integer = Array.IndexOf(Projectiles, Projectile)
+
+        '        ElapsedTime = Now - Projectile.Creation
+
+        '        If ElapsedTime < TimeSpan.FromSeconds(LifeTimeInSeconds) Then
+
+        '            Projectiles(Index).UpdateMovement(deltaTime)
+
+        '        Else
+
+        '            RemoveProjectile(Index)
+
+        '        End If
+
+        '    Next
+
+        'End If
 
     End Sub
 
@@ -586,7 +605,7 @@ Public Class Form1
 
     Private MyTurret As Turret
 
-    Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 100, 100, 9)
+    Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 100, 100, 2)
 
     Private DeltaTime As DeltaTimeStructure
 
