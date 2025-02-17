@@ -85,6 +85,7 @@ Public Structure Turret
 
     Public Sub Draw(g As Graphics)
         ' Draw a line of given length from the given center point at a given angle.
+
         g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
         Dim Diameter As Integer = 75
@@ -120,7 +121,7 @@ End Structure
 
 Public Structure ProjectileManager
 
-    Public Structure Projectile
+    Private Structure Projectile
 
         ' Array of projectiles
         '   Fire
@@ -164,48 +165,54 @@ Public Structure ProjectileManager
             X = center.X + length * Cos(AngleInRadians)
             Y = center.Y + length * Sin(AngleInRadians)
 
-            ' Set direction vector based on angle and velocity.
-            ' Adjust the initial position based on the angle.
-            Select Case angleInDegrees
-                Case 0
-                    Me.Velocity.X = velocity
-                    Me.Velocity.Y = 0
-                    Y -= Me.Height / 2
-                Case 360
-                    Me.Velocity.X = velocity
-                    Me.Velocity.Y = 0
-                    Y -= Me.Height / 2
-                Case 45
-                    Me.Velocity.X = velocity
-                    Me.Velocity.Y = velocity
-                Case 90
-                    Me.Velocity.X = 0
-                    Me.Velocity.Y = velocity
-                    X -= Me.Width / 2 - 1
-                Case 135
-                    Me.Velocity.X = -velocity
-                    Me.Velocity.Y = velocity
-                    X -= Me.Width / 2
-                    Y -= Me.Height / 4
-                Case 180
-                    Me.Velocity.X = -velocity
-                    Me.Velocity.Y = 0
-                    Y -= Me.Height / 2
-                Case 225
-                    Me.Velocity.X = -velocity
-                    Me.Velocity.Y = -velocity
-                Case 270
-                    Me.Velocity.X = 0
-                    Me.Velocity.Y = -velocity
-                    X -= Me.Width / 2 - 1
-                Case 315
-                    Me.Velocity.X = velocity
-                    Me.Velocity.Y = -velocity
-                    X -= Me.Width / 2
-                    Y -= Me.Height / 4
-                Case Else
-                    Debug.Print("Projectile was not set to an angle of fire in 45° increments.")
-            End Select
+            ' To have the max impact think tutuorial for a young bill gates.
+
+
+            ' Set velocity based on angle
+            Me.Velocity = New PointF(Cos(AngleInRadians) * velocity, Sin(AngleInRadians) * velocity)
+
+            '' Set direction vector based on angle and velocity.
+            '' Adjust the initial position based on the angle.
+            'Select Case angleInDegrees
+            '    Case 0
+            '        Me.Velocity.X = velocity
+            '        Me.Velocity.Y = 0
+            '        Y -= Me.Height / 2
+            '    Case 360
+            '        Me.Velocity.X = velocity
+            '        Me.Velocity.Y = 0
+            '        Y -= Me.Height / 2
+            '    Case 45
+            '        Me.Velocity.X = velocity
+            '        Me.Velocity.Y = velocity
+            '    Case 90
+            '        Me.Velocity.X = 0
+            '        Me.Velocity.Y = velocity
+            '        X -= Me.Width / 2 - 1
+            '    Case 135
+            '        Me.Velocity.X = -velocity
+            '        Me.Velocity.Y = velocity
+            '        X -= Me.Width / 2
+            '        Y -= Me.Height / 4
+            '    Case 180
+            '        Me.Velocity.X = -velocity
+            '        Me.Velocity.Y = 0
+            '        Y -= Me.Height / 2
+            '    Case 225
+            '        Me.Velocity.X = -velocity
+            '        Me.Velocity.Y = -velocity
+            '    Case 270
+            '        Me.Velocity.X = 0
+            '        Me.Velocity.Y = -velocity
+            '        X -= Me.Width / 2 - 1
+            '    Case 315
+            '        Me.Velocity.X = velocity
+            '        Me.Velocity.Y = -velocity
+            '        X -= Me.Width / 2
+            '        Y -= Me.Height / 4
+            '    Case Else
+            '        Debug.Print("Projectile was not set to an angle of fire in 45° increments.")
+            'End Select
 
             Creation = Now()
 
@@ -248,6 +255,13 @@ Public Structure ProjectileManager
             Return CInt(Math.Round(value))
         End Function
 
+
+        Public Function Rectangle() As Rectangle
+
+            Return New Rectangle(NearestX, NearestY, NearestWidth, NearestHeight)
+        End Function
+
+
     End Structure
 
     Private Projectiles() As Projectile
@@ -281,9 +295,14 @@ Public Structure ProjectileManager
 
             For Each Projectile In Projectiles
 
-                If rectangle.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
+
+                ' If rectangle.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
+
+                If rectangle.IntersectsWith(Projectile.Rectangle) Then
 
                     Colliding = True
+
+                    Exit For
 
                 End If
 
@@ -302,10 +321,10 @@ Public Structure ProjectileManager
             For Each Projectile In Projectiles
 
                 graphics.FillRectangle(Projectile.Brush,
-                                Projectile.NearestX,
-                                Projectile.NearestY,
-                                Projectile.NearestWidth,
-                                Projectile.NearestHeight)
+                                       Projectile.NearestX,
+                                       Projectile.NearestY,
+                                       Projectile.NearestWidth,
+                                       Projectile.NearestHeight)
 
             Next
 
