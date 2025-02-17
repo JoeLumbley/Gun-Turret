@@ -312,48 +312,9 @@ Public Structure ProjectileManager
 
             Next
 
-            'For Each projectile In Projectiles
-
-            '    Dim Index As Integer = Array.IndexOf(Projectiles, projectile)
-
-            '    Projectiles(Index).UpdateMovement(deltaTime)
-
-            'Next
-
         End If
 
-
-        'Dim ElapsedTime As TimeSpan
-
-        'If Projectiles IsNot Nothing Then
-
-        '    For Each Projectile In Projectiles
-
-        '        Dim Index As Integer = Array.IndexOf(Projectiles, Projectile)
-
-        '        ElapsedTime = Now - Projectile.Creation
-
-        '        If ElapsedTime < TimeSpan.FromSeconds(LifeTimeInSeconds) Then
-
-        '            Projectiles(Index).UpdateMovement(deltaTime)
-
-        '        Else
-
-        '            RemoveProjectile(Index)
-
-        '        End If
-
-        '    Next
-
-        'End If
-
     End Sub
-
-    'Private Sub RemoveProjectile(Index As Integer)
-
-    '    Projectiles = Projectiles.Where(Function(e, i) i <> Index).ToArray()
-
-    'End Sub
 
 End Structure
 
