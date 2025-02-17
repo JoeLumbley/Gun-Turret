@@ -140,7 +140,7 @@ Public Structure ProjectileManager
 
         Public Center As PointF
 
-        Public Length As Integer
+        Public BarrelLength As Integer
 
         Public AngleInDegrees As Single
 
@@ -154,7 +154,7 @@ Public Structure ProjectileManager
             Me.Height = height
 
             Me.Center = center
-            Me.Length = length
+            Me.BarrelLength = length
 
             Me.AngleInDegrees = angleInDegrees
 
@@ -165,54 +165,11 @@ Public Structure ProjectileManager
             X = center.X + length * Cos(AngleInRadians)
             Y = center.Y + length * Sin(AngleInRadians)
 
-            ' To have the max impact think tutuorial for a young bill gates.
-
-
             ' Set velocity based on angle
-            Me.Velocity = New PointF(Cos(AngleInRadians) * velocity, Sin(AngleInRadians) * velocity)
+            Me.Velocity = New PointF(Cos(AngleInRadians) * velocity,
+                                     Sin(AngleInRadians) * velocity)
 
-            '' Set direction vector based on angle and velocity.
-            '' Adjust the initial position based on the angle.
-            'Select Case angleInDegrees
-            '    Case 0
-            '        Me.Velocity.X = velocity
-            '        Me.Velocity.Y = 0
-            '        Y -= Me.Height / 2
-            '    Case 360
-            '        Me.Velocity.X = velocity
-            '        Me.Velocity.Y = 0
-            '        Y -= Me.Height / 2
-            '    Case 45
-            '        Me.Velocity.X = velocity
-            '        Me.Velocity.Y = velocity
-            '    Case 90
-            '        Me.Velocity.X = 0
-            '        Me.Velocity.Y = velocity
-            '        X -= Me.Width / 2 - 1
-            '    Case 135
-            '        Me.Velocity.X = -velocity
-            '        Me.Velocity.Y = velocity
-            '        X -= Me.Width / 2
-            '        Y -= Me.Height / 4
-            '    Case 180
-            '        Me.Velocity.X = -velocity
-            '        Me.Velocity.Y = 0
-            '        Y -= Me.Height / 2
-            '    Case 225
-            '        Me.Velocity.X = -velocity
-            '        Me.Velocity.Y = -velocity
-            '    Case 270
-            '        Me.Velocity.X = 0
-            '        Me.Velocity.Y = -velocity
-            '        X -= Me.Width / 2 - 1
-            '    Case 315
-            '        Me.Velocity.X = velocity
-            '        Me.Velocity.Y = -velocity
-            '        X -= Me.Width / 2
-            '        Y -= Me.Height / 4
-            '    Case Else
-            '        Debug.Print("Projectile was not set to an angle of fire in 45° increments.")
-            'End Select
+            ' To have the max impact think tutuorial for a young bill gates.
 
             Creation = Now()
 
@@ -276,13 +233,9 @@ Public Structure ProjectileManager
     Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLength As Integer, lifeTimeInSeconds As Integer)
 
         Me.Brush = brush
-
         Me.BarrelLength = barrelLength
-
         Me.MuzzleVelocity = muzzleVelocity
-
         Me.Size = size
-
         Me.LifeTimeInSeconds = lifeTimeInSeconds
 
     End Sub
@@ -294,9 +247,6 @@ Public Structure ProjectileManager
         If Projectiles IsNot Nothing Then
 
             For Each Projectile In Projectiles
-
-
-                ' If rectangle.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
 
                 If rectangle.IntersectsWith(Projectile.Rectangle) Then
 
@@ -318,17 +268,28 @@ Public Structure ProjectileManager
 
         If Projectiles IsNot Nothing Then
 
-            For Each Projectile In Projectiles
+            For Each projectile In Projectiles
 
-                graphics.FillRectangle(Projectile.Brush,
-                                       Projectile.NearestX,
-                                       Projectile.NearestY,
-                                       Projectile.NearestWidth,
-                                       Projectile.NearestHeight)
+                graphics.FillRectangle(projectile.Brush, projectile.Rectangle())
 
             Next
 
         End If
+
+
+        'If Projectiles IsNot Nothing Then
+
+        '    For Each Projectile In Projectiles
+
+        '        graphics.FillRectangle(Projectile.Brush,
+        '                               Projectile.NearestX,
+        '                               Projectile.NearestY,
+        '                               Projectile.NearestWidth,
+        '                               Projectile.NearestHeight)
+
+        '    Next
+
+        'End If
 
     End Sub
 
