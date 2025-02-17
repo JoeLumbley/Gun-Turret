@@ -274,19 +274,35 @@ Public Structure ProjectileManager
 
     Private Sub AddProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
 
-        If Projectiles IsNot Nothing Then
-
-            Array.Resize(Projectiles, Projectiles.Length + 1)
-
-        Else
+        If Projectiles Is Nothing Then
 
             ReDim Projectiles(0)
 
+        Else
+
+            Array.Resize(Projectiles, Projectiles.Length + 1)
+
         End If
 
-        Dim Index As Integer = Projectiles.Length - 1
+        Dim index As Integer = Projectiles.Length - 1
 
-        Projectiles(Index) = New Projectile(Brush, Size.Width, Size.Height, MuzzleVelocity, CenterOfFire, BarrelLength, AngleInDegrees)
+        Projectiles(index) = New Projectile(Brush, Size.Width, Size.Height, MuzzleVelocity, CenterOfFire, BarrelLength, AngleInDegrees)
+
+
+
+        'If Projectiles IsNot Nothing Then
+
+        '    Array.Resize(Projectiles, Projectiles.Length + 1)
+
+        'Else
+
+        '    ReDim Projectiles(0)
+
+        'End If
+
+        'Dim Index As Integer = Projectiles.Length - 1
+
+        'Projectiles(Index) = New Projectile(Brush, Size.Width, Size.Height, MuzzleVelocity, CenterOfFire, BarrelLength, AngleInDegrees)
 
     End Sub
 
