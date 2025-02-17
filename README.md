@@ -27,35 +27,7 @@ A application that simulates a gun turret, allowing for rotation and firing proj
 
 Welcome to the detailed walkthrough of the Gun Turret simulation code! In this lesson, we will go through the code line by line, explaining each part in a way that is easy to understand for beginners. This project is written in Visual Basic .NET and simulates a turret that can rotate and fire projectiles. Let's dive in!
 
-## Index of Sections and Subsections
 
-- [1. Imports and Structure Definitions](#imports-and-structure-definitions)
-  - [1.1 Turret Structure](#turret-structure)
-    - [1.1.1 Member Variables](#member-variables)
-    - [1.1.2 Constructor](#constructor)
-    - [1.1.3 Draw Method](#draw-method)
-    - [1.1.4 Line Drawing Method](#line-drawing-method)
-  - [1.2 ProjectileManager Structure](#projectilemanager-structure)
-    - [1.2.1 Projectile Structure](#projectile-structure)
-      - [1.2.1.1 Member Variables](#member-variables-1)
-      - [1.2.1.2 Constructor](#constructor-1)
-      - [1.2.1.3 Velocity Calculation](#velocity-calculation)
-      - [1.2.1.4 UpdateMovement Method](#updatemovement-method)
-      - [1.2.1.5 Rounding Functions](#rounding-functions)
-    - [1.2.2 Projectile Management](#projectile-management)
-      - [1.2.2.1 Member Variables](#member-variables-2)
-      - [1.2.2.2 Collision Detection](#collision-detection)
-      - [1.2.2.3 Drawing Projectiles](#drawing-projectiles)
-      - [1.2.2.4 Firing Projectiles](#firing-projectiles)
-      - [1.2.2.5 Updating Projectiles](#updating-projectiles)
-- [2. Form1 Class](#form1-class)
-  - [2.1 Member Variables](#member-variables-3)
-  - [2.2 Constructor](#constructor-2)
-  - [2.3 Timer Tick Event](#timer-tick-event)
-  - [2.4 Paint Event](#paint-event)
-  - [2.5 Key Events](#key-events)
-  - [2.6 Resize Event](#resize-event)
-- [3. Conclusion](#conclusion)
 
 ## 1. Imports and Structure Definitions
 
@@ -374,7 +346,35 @@ Feel free to experiment with the code, change parameters, and see how it affects
 [Back to Index](#index-of-sections-and-subsections)
 
 
+## Index of Sections and Subsections
 
+- [1. Imports and Structure Definitions](#imports-and-structure-definitions)
+  - [1.1 Turret Structure](#turret-structure)
+    - [1.1.1 Member Variables](#member-variables)
+    - [1.1.2 Constructor](#constructor)
+    - [1.1.3 Draw Method](#draw-method)
+    - [1.1.4 Line Drawing Method](#line-drawing-method)
+  - [1.2 ProjectileManager Structure](#projectilemanager-structure)
+    - [1.2.1 Projectile Structure](#projectile-structure)
+      - [1.2.1.1 Member Variables](#member-variables-1)
+      - [1.2.1.2 Constructor](#constructor-1)
+      - [1.2.1.3 Velocity Calculation](#velocity-calculation)
+      - [1.2.1.4 UpdateMovement Method](#updatemovement-method)
+      - [1.2.1.5 Rounding Functions](#rounding-functions)
+    - [1.2.2 Projectile Management](#projectile-management)
+      - [1.2.2.1 Member Variables](#member-variables-2)
+      - [1.2.2.2 Collision Detection](#collision-detection)
+      - [1.2.2.3 Drawing Projectiles](#drawing-projectiles)
+      - [1.2.2.4 Firing Projectiles](#firing-projectiles)
+      - [1.2.2.5 Updating Projectiles](#updating-projectiles)
+- [2. Form1 Class](#form1-class)
+  - [2.1 Member Variables](#member-variables-3)
+  - [2.2 Constructor](#constructor-2)
+  - [2.3 Timer Tick Event](#timer-tick-event)
+  - [2.4 Paint Event](#paint-event)
+  - [2.5 Key Events](#key-events)
+  - [2.6 Resize Event](#resize-event)
+- [3. Conclusion](#conclusion)
 
 
 
