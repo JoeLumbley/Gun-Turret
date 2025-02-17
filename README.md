@@ -286,11 +286,36 @@ This constructor initializes the `ProjectileManager` with the provided parameter
 #### 1.2.2.2 Collision Detection
 
 ```vb
+
 Public Function IsColliding(rectangle As Rectangle) As Boolean
+
+    Dim Colliding As Boolean
+
+    If Projectiles IsNot Nothing Then
+
+        For Each Projectile In Projectiles
+
+            If rectangle.IntersectsWith(New Rectangle(Projectile.X, Projectile.Y, Projectile.Width, Projectile.Height)) Then
+
+                Colliding = True
+
+            End If
+
+        Next
+
+    End If
+
+    Return Colliding
+
+End Function
+
 ```
+
 This function checks if any projectiles are colliding with a specified rectangle.
 
-[Back to Index](#index-of-sections-and-subsections)
+[Index](#index-of-sections-and-subsections)
+
+
 
 #### 1.2.2.3 Drawing Projectiles
 
