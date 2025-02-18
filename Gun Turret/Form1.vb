@@ -343,6 +343,8 @@ Public Structure ProjectileManager
 
         ' LINQ - https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/linq/
 
+        ' Lambda Expressions - https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/procedures/lambda-expressions
+
     End Sub
 
 End Structure
