@@ -286,15 +286,13 @@ Public Structure ProjectileManager
 
         End If
 
-        Dim Index As Integer = Projectiles.Length - 1
-
-        Projectiles(Index) = New Projectile(Brush,
-                                            Size.Width,
-                                            Size.Height,
-                                            MuzzleVelocity,
-                                            CenterOfFire,
-                                            BarrelLength,
-                                            AngleInDegrees)
+        Projectiles(Projectiles.Length - 1) = New Projectile(Brush,
+                                                             Size.Width,
+                                                             Size.Height,
+                                                             MuzzleVelocity,
+                                                             CenterOfFire,
+                                                             BarrelLength,
+                                                             AngleInDegrees)
 
     End Sub
 
