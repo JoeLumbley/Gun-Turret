@@ -654,83 +654,11 @@ Public Class Form1
 
         DeltaTime.Update()
 
-        If ADown Then
-
-            Dim ElapsedTime As TimeSpan = Now - LastFireTime
-
-            If ElapsedTime > ReloadTime Then
-
-                Player.PlayOverlapping("gunshot")
-
-                Projectiles.FireProjectile(Turret.Center, Turret.AngleInDegrees)
-
-                LastFireTime = Now
-
-            End If
-
-        End If
-
-        If LeftArrowDown Then
-
-            Dim ElapsedTime As TimeSpan = Now - LastRotationTime
-
-            If ElapsedTime > TimeToNextRotation Then
-
-                If Turret.AngleInDegrees > 0 Then
-
-                    Turret.AngleInDegrees -= 1.5 ' Rotate clockwise
-
-                Else
-
-                    Turret.AngleInDegrees = 360
-
-                End If
-
-                LastRotationTime = Now
-
-            End If
-
-        End If
-
-        If RightArrowDown Then
-
-            Dim ElapsedTime As TimeSpan = Now - LastRotationTime
-
-            If ElapsedTime > TimeToNextRotation Then
-
-                If Turret.AngleInDegrees < 360 Then
-
-                    Turret.AngleInDegrees += 1.5 ' Rotate clockwise
-
-                Else
-
-                    Turret.AngleInDegrees = 0
-
-                End If
-
-                LastRotationTime = Now
-
-            End If
-
-        End If
+        HandleKeyPresses()
 
         Projectiles.UpdateProjectiles(DeltaTime.ElapsedTime)
 
-        If Projectiles.IsColliding(Target) Then
-
-            TargetHit = True
-
-            If Not Player.IsPlaying("explosion") Then
-
-                Player.PlaySound("explosion")
-
-            End If
-
-        Else
-
-            TargetHit = False
-
-        End If
+        HandleCollisions()
 
         Invalidate()
 
@@ -740,7 +668,7 @@ Public Class Form1
         MyBase.OnPaint(e)
 
         If TargetHit Then
-
+            'TODO: TargetBrush
             e.Graphics.FillRectangle(Brushes.Blue, Target)
 
         Else
@@ -761,9 +689,7 @@ Public Class Form1
 
     Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
         MyBase.OnKeyDown(e)
-        ' Handle key presses to rotate the turret or fire projectiles.
 
-        ' Rotate turret based on key press.
         If e.KeyCode = Keys.Right Then
 
             RightArrowDown = True
@@ -812,6 +738,109 @@ Public Class Form1
         Turret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
         Target.Y = ClientSize.Height / 2 - Target.Height / 2
+
+    End Sub
+
+    Private Sub HandleCollisions()
+
+        If Projectiles.IsColliding(Target) Then
+
+            TargetHit = True
+
+            If Not Player.IsPlaying("explosion") Then
+
+                Player.PlaySound("explosion")
+
+            End If
+
+        Else
+
+            TargetHit = False
+
+        End If
+
+    End Sub
+
+    Private Sub HandleKeyPresses()
+        ' Handle key presses to rotate the turret or fire projectiles.
+
+        If ADown Then
+
+            FireProjectile()
+
+        End If
+
+        If LeftArrowDown Then
+
+            RotateTurretCounterClockwise()
+
+        End If
+
+        If RightArrowDown Then
+
+            RotateTurretClockwise()
+
+        End If
+
+    End Sub
+
+    Private Sub RotateTurretClockwise()
+
+        Dim ElapsedTime As TimeSpan = Now - LastRotationTime
+
+        If ElapsedTime > TimeToNextRotation Then
+
+            If Turret.AngleInDegrees < 360 Then
+
+                Turret.AngleInDegrees += 1.5 ' Rotate clockwise
+
+            Else
+
+                Turret.AngleInDegrees = 0
+
+            End If
+
+            LastRotationTime = Now
+
+        End If
+
+    End Sub
+
+    Private Sub RotateTurretCounterClockwise()
+
+        Dim ElapsedTime As TimeSpan = Now - LastRotationTime
+
+        If ElapsedTime > TimeToNextRotation Then
+
+            If Turret.AngleInDegrees > 0 Then
+
+                Turret.AngleInDegrees -= 1.5 ' Rotate counterclockwise
+
+            Else
+
+                Turret.AngleInDegrees = 360
+
+            End If
+
+            LastRotationTime = Now
+
+        End If
+
+    End Sub
+
+    Private Sub FireProjectile()
+
+        Dim ElapsedTime As TimeSpan = Now - LastFireTime
+
+        If ElapsedTime > ReloadTime Then
+
+            Player.PlayOverlapping("gunshot")
+
+            Projectiles.FireProjectile(Turret.Center, Turret.AngleInDegrees)
+
+            LastFireTime = Now
+
+        End If
 
     End Sub
 
