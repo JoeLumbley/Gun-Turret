@@ -631,7 +631,7 @@ Public Class Form1
 
     Private InstructionsLocation As New PointF(0, 0)
 
-    Private InstructionsText As New String("Use arrow keys to rotate turret. Press A to fire, hold for automatic.")
+    Private InstructionsText As New String("Use left or right arrow keys to rotate turret. Press A to fire, hold for automatic.")
 
     ' Constructor for the form.
     Public Sub New()
@@ -642,11 +642,6 @@ Public Class Form1
         CreateSoundFiles()
 
         InitializeSounds()
-
-        ' Enable double buffering to reduce flickering
-        'Me.DoubleBuffered = True
-
-        'Text = "Gun Turret - Code with Joe"
 
         ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
@@ -669,7 +664,7 @@ Public Class Form1
 
         Text = "Gun Turret - Code with Joe"
 
-        Me.WindowState = FormWindowState.Maximized
+        WindowState = FormWindowState.Maximized
 
     End Sub
 
