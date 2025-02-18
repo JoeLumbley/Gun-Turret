@@ -274,7 +274,7 @@ Public Structure ProjectileManager
 
     End Sub
 
-    Private Sub AddProjectile(CenterOfFire As PointF, AngleInDegrees As Single)
+    Private Sub AddProjectile(centerOfFire As PointF, angleInDegrees As Single)
 
         If Projectiles Is Nothing Then
 
@@ -290,9 +290,9 @@ Public Structure ProjectileManager
                                                              Size.Width,
                                                              Size.Height,
                                                              MuzzleVelocity,
-                                                             CenterOfFire,
+                                                             centerOfFire,
                                                              BarrelLength,
-                                                             AngleInDegrees)
+                                                             angleInDegrees)
 
     End Sub
 
