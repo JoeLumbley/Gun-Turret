@@ -601,7 +601,7 @@ Public Class Form1
 
     Private Turret As Turret
 
-    Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 100, 100, 9)
+    Private Projectiles As New ProjectileManager(Brushes.Red, New Drawing.Size(10, 10), 200, 100, 9)
 
     Private DeltaTime As DeltaTimeStructure
 
