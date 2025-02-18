@@ -831,7 +831,7 @@ Public Class Form1
 
         FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
         Player.AddSound("ambientnoise", FilePath)
-        Player.SetVolume("ambientnoise", 10)
+        Player.SetVolume("ambientnoise", 5)
 
         FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
         Player.AddSound("explosion", FilePath)
