@@ -826,23 +826,15 @@ Public Class Form1
     Private Sub InitializeSounds()
 
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
-
         Player.AddOverlapping("gunshot", FilePath)
-
         Player.SetVolumeOverlapping("gunshot", 1000)
 
-
         FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
-
         Player.AddSound("ambientnoise", FilePath)
-
         Player.SetVolume("ambientnoise", 10)
 
-
         FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
-
         Player.AddSound("explosion", FilePath)
-
         Player.SetVolume("explosion", 200)
 
     End Sub
@@ -850,15 +842,12 @@ Public Class Form1
     Private Sub CreateSoundFiles()
 
         Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
-
         CreateFileFromResource(FilePath, My.Resources.Resource1.gunshot003)
 
         FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
-
         CreateFileFromResource(FilePath, My.Resources.Resource1.ambientnoise)
 
         FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
-
         CreateFileFromResource(FilePath, My.Resources.Resource1.explosion)
 
     End Sub
