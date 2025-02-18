@@ -336,9 +336,9 @@ Public Structure ProjectileManager
 
         ' (Date.Now - p.Creation).TotalSeconds < lifeTime)
 
-        '             ElapsedTime.TotalSeconds < lifeTime 
-        '                            0.0003402 < 9 Alive
-        '                          133.0161469 < 9 Past Life Time
+        ' ElapsedTimeFromCreation.TotalSeconds < lifeTime 
+        '                            0.0003402 < 9        Alive
+        '                          133.0161469 < 9        Past Life Time
 
         ' Using LINQ with lambda expressions is a powerful way to perform queries
         ' and manipulate collections in a concise and readable manner.
