@@ -597,7 +597,116 @@ Public Structure AudioPlayer
 
 End Structure
 
+
+
+Public Structure BufferManager
+
+    Private Context As BufferedGraphicsContext
+
+    Public Buffered As BufferedGraphics
+
+    Private ReadOnly MinimumBufferSize As Size '(1280, 720)
+
+    Private BackgroundColor As Color '= Color.Black
+
+    Public Sub New(form As Form, backgroundColor As Color)
+
+        Me.BackgroundColor = backgroundColor
+
+        MinimumBufferSize = New Size(1280, 720)
+
+        InitializeBuffer(form)
+
+    End Sub
+
+    Private Sub InitializeBuffer(form As Form)
+
+        Context = BufferedGraphicsManager.Current
+
+        If Screen.PrimaryScreen IsNot Nothing Then
+
+            Context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size
+
+        Else
+
+            Context.MaximumBuffer = MinimumBufferSize
+
+            Debug.Print($"Primary screen not detected.")
+
+        End If
+
+        AllocateBuffer(form)
+
+    End Sub
+
+    Public Sub AllocateBuffer(form As Form)
+
+        If Buffered Is Nothing Then
+
+            Buffered = Context.Allocate(form.CreateGraphics(), form.ClientRectangle)
+
+            Buffered.Graphics.CompositingMode =
+                    Drawing2D.CompositingMode.SourceOver
+
+            Buffered.Graphics.TextRenderingHint =
+                 Text.TextRenderingHint.AntiAlias
+
+            EraseFrame()
+
+        End If
+
+    End Sub
+
+    'Private Sub DrawFrame()
+
+    '    ' Draw rectangle.
+    '    Buffer?.Graphics.FillRectangle(Rectangle.Brush,
+    '                                   Rectangle.GetNearestX,
+    '                                   Rectangle.GetNearestY,
+    '                                   Rectangle.GetNearestWidth,
+    '                                   Rectangle.GetNearestHeight)
+
+    '    ' Draw frames per second display.
+    '    Buffer?.Graphics.DrawString(FPSDisplay.Text,
+    '                                FPSDisplay.Font,
+    '                                FPSDisplay.Brush,
+    '                                FPSDisplay.Location)
+
+    'End Sub
+
+
+    Public Sub EraseFrame()
+
+        Buffered?.Graphics.Clear(BackgroundColor)
+
+    End Sub
+
+    Public Sub DisposeBuffer()
+
+        If Buffered IsNot Nothing Then
+
+            Buffered.Dispose()
+
+            Buffered = Nothing ' Set to Nothing to avoid using a disposed object
+
+            ' The buffer will be reallocated in OnPaint
+
+        End If
+
+    End Sub
+
+
+End Structure
+
+
+
+
+
+
+
 Public Class Form1
+
+    Private OffScreen As New BufferManager(Me, BackColor)
 
     Private Player As AudioPlayer
 
@@ -639,6 +748,8 @@ Public Class Form1
 
         InitializeForm()
 
+        'OffScreen.InitializeBuffer(Me)
+
         CreateSoundFiles()
 
         InitializeSounds()
@@ -668,7 +779,6 @@ Public Class Form1
 
     End Sub
 
-
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
         DeltaTime.Update()
@@ -686,15 +796,28 @@ Public Class Form1
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
 
-        e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        DrawFrame()
 
-        e.Graphics.DrawString(InstructionsText, InstructionsFont, Brushes.Black, InstructionsLocation)
+        ' Show buffer on form.
+        OffScreen.Buffered?.Render(e.Graphics)
 
-        e.Graphics.FillRectangle(TargetBrush, Target)
+        OffScreen.EraseFrame()
 
-        Projectiles.DrawProjectiles(e.Graphics)
+    End Sub
 
-        Turret.Draw(e.Graphics)
+    Private Sub DrawFrame()
+
+        OffScreen.AllocateBuffer(Me)
+
+        OffScreen.Buffered.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+
+        OffScreen.Buffered.Graphics.DrawString(InstructionsText, InstructionsFont, Brushes.Black, InstructionsLocation)
+
+        OffScreen.Buffered.Graphics.FillRectangle(TargetBrush, Target)
+
+        Projectiles.DrawProjectiles(OffScreen.Buffered.Graphics)
+
+        Turret.Draw(OffScreen.Buffered.Graphics)
 
     End Sub
 
@@ -746,9 +869,21 @@ Public Class Form1
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
 
-        Turret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+        If Not WindowState = FormWindowState.Minimized Then
 
-        Target.Y = ClientSize.Height / 2 - Target.Height / 2
+            Turret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+
+            Target.Y = ClientSize.Height / 2 - Target.Height / 2
+
+            OffScreen.DisposeBuffer()
+
+            Timer1.Enabled = True
+
+        Else
+
+            Timer1.Enabled = False
+
+        End If
 
     End Sub
 
