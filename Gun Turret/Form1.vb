@@ -625,7 +625,13 @@ Public Class Form1
 
     Private Target As New Rectangle(0, 0, 100, 100)
 
-    Private TargetHit As Boolean
+    Private TargetBrush As Brush = Brushes.Black
+
+    Private InstructionsFont As New Font("Segoe UI", 12)
+
+    Private InstructionsLocation As New PointF(0, 0)
+
+    Private InstructionsText As New String("Use arrow keys to rotate turret. Press A to fire, hold for automatic.")
 
     ' Constructor for the form.
     Public Sub New()
@@ -667,19 +673,11 @@ Public Class Form1
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         MyBase.OnPaint(e)
 
-        If TargetHit Then
-            'TODO: TargetBrush
-            e.Graphics.FillRectangle(Brushes.Blue, Target)
-
-        Else
-
-            e.Graphics.FillRectangle(Brushes.Black, Target)
-
-        End If
-
         e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
 
-        e.Graphics.DrawString("Use arrow keys to rotate turret. Press A to fire hold for automatic.", New Font("Segoe UI", 12), Brushes.Black, New PointF(0, 0))
+        e.Graphics.DrawString(InstructionsText, InstructionsFont, Brushes.Black, InstructionsLocation)
+
+        e.Graphics.FillRectangle(TargetBrush, Target)
 
         Projectiles.DrawProjectiles(e.Graphics)
 
@@ -745,7 +743,7 @@ Public Class Form1
 
         If Projectiles.IsColliding(Target) Then
 
-            TargetHit = True
+            TargetBrush = Brushes.Blue
 
             If Not Player.IsPlaying("explosion") Then
 
@@ -755,7 +753,7 @@ Public Class Form1
 
         Else
 
-            TargetHit = False
+            TargetBrush = Brushes.Black
 
         End If
 
