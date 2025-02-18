@@ -616,7 +616,7 @@ Public Class Form1
 
     Private ReloadTime As TimeSpan = TimeSpan.FromMilliseconds(100)
 
-    Private TimeToNextRotation As TimeSpan = TimeSpan.FromMicroseconds(1)
+    Private TimeToNextRotation As TimeSpan = TimeSpan.FromMilliseconds(1)
 
     Private LastFireTime As DateTime = Now
 
@@ -677,7 +677,7 @@ Public Class Form1
 
                 If Turret.AngleInDegrees > 0 Then
 
-                    Turret.AngleInDegrees -= 1 ' Rotate clockwise
+                    Turret.AngleInDegrees -= 1.5 ' Rotate clockwise
 
                 Else
 
@@ -699,7 +699,7 @@ Public Class Form1
 
                 If Turret.AngleInDegrees < 360 Then
 
-                    Turret.AngleInDegrees += 1 ' Rotate clockwise
+                    Turret.AngleInDegrees += 1.5 ' Rotate clockwise
 
                 Else
 
