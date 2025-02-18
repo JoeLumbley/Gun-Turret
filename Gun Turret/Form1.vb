@@ -182,10 +182,6 @@ Public Structure ProjectileManager
             X = center.X + length * Cos(AngleInRadians) - Me.Width / 2
             Y = center.Y + length * Sin(AngleInRadians) - Me.Height / 2
 
-            '' Adjust the initial position based on the angle
-            'X -= Me.Width / 2
-            'Y -= Me.Height / 2
-
             ' Set velocity based on angle
             Me.Velocity = New PointF(Cos(AngleInRadians) * velocity,
                                      Sin(AngleInRadians) * velocity)
@@ -233,12 +229,10 @@ Public Structure ProjectileManager
             Return CInt(Math.Round(value))
         End Function
 
-
         Public Function Rectangle() As Rectangle
 
             Return New Rectangle(NearestX, NearestY, NearestWidth, NearestHeight)
         End Function
-
 
     End Structure
 
