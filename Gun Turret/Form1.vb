@@ -246,8 +246,6 @@ Public Structure ProjectileManager
 
     Public Sub UpdateProjectiles(deltaTime As TimeSpan)
 
-        Dim lifeTime As Integer = LifeTimeInSeconds
-
         If Projectiles IsNot Nothing Then
 
             RemoveProjectilesPastTheirLifeTime()
@@ -300,7 +298,6 @@ Public Structure ProjectileManager
 
     End Sub
 
-
     Public Function IsColliding(rectangle As Rectangle) As Boolean
 
         If Projectiles IsNot Nothing Then
@@ -332,12 +329,16 @@ Public Structure ProjectileManager
 
         ' Projectiles.Where(Function(p) (Date.Now - p.Creation).TotalSeconds < lifeTime)
 
-        ' This is a LINQ (Language-Integrated Query) lambda expression.
+        ' This is a LINQ lambda expression.
 
         ' The Where method filters the Projectiles array based on the condition
         ' provided by the lambda function.
 
         ' (Date.Now - p.Creation).TotalSeconds < lifeTime)
+
+        '             ElapsedTime.TotalSeconds < lifeTime 
+        '                            0.0003402 < 9 Alive
+        '                          133.0161469 < 9 Past Life Time
 
         ' Using LINQ with lambda expressions is a powerful way to perform queries
         ' and manipulate collections in a concise and readable manner.
