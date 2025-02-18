@@ -179,8 +179,12 @@ Public Structure ProjectileManager
             Dim AngleInRadians As Single = angleInDegrees * (Math.PI / 180)
 
             ' Set initial position based on the angle and length
-            X = center.X + length * Cos(AngleInRadians)
-            Y = center.Y + length * Sin(AngleInRadians)
+            X = center.X + length * Cos(AngleInRadians) - Me.Width / 2
+            Y = center.Y + length * Sin(AngleInRadians) - Me.Height / 2
+
+            '' Adjust the initial position based on the angle
+            'X -= Me.Width / 2
+            'Y -= Me.Height / 2
 
             ' Set velocity based on angle
             Me.Velocity = New PointF(Cos(AngleInRadians) * velocity,
@@ -618,7 +622,7 @@ Public Class Form1
 
     Private ReloadTime As TimeSpan = TimeSpan.FromMilliseconds(100)
 
-    Private TimeToNextRotation As TimeSpan = TimeSpan.FromMilliseconds(125)
+    Private TimeToNextRotation As TimeSpan = TimeSpan.FromMicroseconds(1)
 
     Private LastFireTime As DateTime = Now
 
@@ -636,12 +640,6 @@ Public Class Form1
 
         InitializeSounds()
 
-        'ReloadTime = TimeSpan.FromMilliseconds(100)
-
-        'TimeToNextRotation = TimeSpan.FromMilliseconds(125)
-
-
-
         ' Enable double buffering to reduce flickering
         Me.DoubleBuffered = True
 
@@ -654,73 +652,6 @@ Public Class Form1
         Player.LoopSound("ambientnoise")
 
         InitializeTimer()
-
-    End Sub
-
-    Private Sub InitializeTimer()
-
-        Timer1.Interval = 15
-
-        Timer1.Start()
-
-    End Sub
-
-    Private Sub InitializeSounds()
-
-        Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
-
-        Player.AddOverlapping("gunshot", FilePath)
-
-        Player.SetVolumeOverlapping("gunshot", 1000)
-
-
-        FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
-
-        Player.AddSound("ambientnoise", FilePath)
-
-        Player.SetVolume("ambientnoise", 10)
-
-
-        FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
-
-        Player.AddSound("explosion", FilePath)
-
-        Player.SetVolume("explosion", 200)
-
-    End Sub
-
-    Private Sub CreateSoundFiles()
-
-        Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
-
-        CreateFileFromResource(FilePath, My.Resources.Resource1.gunshot003)
-
-        FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
-
-        CreateFileFromResource(FilePath, My.Resources.Resource1.ambientnoise)
-
-        FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
-
-        CreateFileFromResource(FilePath, My.Resources.Resource1.explosion)
-
-
-    End Sub
-
-    Private Sub CreateFileFromResource(filepath As String, resource As Byte())
-
-        Try
-
-            If Not IO.File.Exists(filepath) Then
-
-                IO.File.WriteAllBytes(filepath, resource)
-
-            End If
-
-        Catch ex As Exception
-
-            Debug.Print($"Error creating file: {ex.Message}")
-
-        End Try
 
     End Sub
 
@@ -752,11 +683,11 @@ Public Class Form1
 
                 If Turret.AngleInDegrees > 0 Then
 
-                    Turret.AngleInDegrees -= 45 ' Rotate clockwise
+                    Turret.AngleInDegrees -= 1 ' Rotate clockwise
 
                 Else
 
-                    Turret.AngleInDegrees = 315
+                    Turret.AngleInDegrees = 360
 
                 End If
 
@@ -765,11 +696,6 @@ Public Class Form1
             End If
 
         End If
-
-
-
-
-
 
         If RightArrowDown Then
 
@@ -779,11 +705,11 @@ Public Class Form1
 
                 If Turret.AngleInDegrees < 360 Then
 
-                    Turret.AngleInDegrees += 45 ' Rotate clockwise
+                    Turret.AngleInDegrees += 1 ' Rotate clockwise
 
                 Else
 
-                    Turret.AngleInDegrees = 45
+                    Turret.AngleInDegrees = 0
 
                 End If
 
@@ -792,9 +718,6 @@ Public Class Form1
             End If
 
         End If
-
-
-
 
         Projectiles.UpdateProjectiles(DeltaTime.ElapsedTime)
 
@@ -848,35 +771,13 @@ Public Class Form1
         ' Rotate turret based on key press.
         If e.KeyCode = Keys.Right Then
 
-
             RightArrowDown = True
-
-
-            'If MyTurret.AngleInDegrees < 360 Then
-
-            '    MyTurret.AngleInDegrees += 45 ' Rotate clockwise
-
-            'Else
-
-            '    MyTurret.AngleInDegrees = 45
-
-            'End If
 
         End If
 
         If e.KeyCode = Keys.Left Then
 
             LeftArrowDown = True
-
-            'If MyTurret.AngleInDegrees > 0 Then
-
-            '    MyTurret.AngleInDegrees -= 45 ' Rotate clockwise
-
-            'Else
-
-            '    MyTurret.AngleInDegrees = 315
-
-            'End If
 
         End If
 
@@ -916,6 +817,72 @@ Public Class Form1
         Turret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
         Target.Y = ClientSize.Height / 2 - Target.Height / 2
+
+    End Sub
+
+    Private Sub InitializeTimer()
+
+        Timer1.Interval = 15
+
+        Timer1.Start()
+
+    End Sub
+
+    Private Sub InitializeSounds()
+
+        Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
+
+        Player.AddOverlapping("gunshot", FilePath)
+
+        Player.SetVolumeOverlapping("gunshot", 1000)
+
+
+        FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
+
+        Player.AddSound("ambientnoise", FilePath)
+
+        Player.SetVolume("ambientnoise", 10)
+
+
+        FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
+
+        Player.AddSound("explosion", FilePath)
+
+        Player.SetVolume("explosion", 200)
+
+    End Sub
+
+    Private Sub CreateSoundFiles()
+
+        Dim FilePath As String = Path.Combine(Application.StartupPath, "gunshot.mp3")
+
+        CreateFileFromResource(FilePath, My.Resources.Resource1.gunshot003)
+
+        FilePath = Path.Combine(Application.StartupPath, "ambientnoise.mp3")
+
+        CreateFileFromResource(FilePath, My.Resources.Resource1.ambientnoise)
+
+        FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
+
+        CreateFileFromResource(FilePath, My.Resources.Resource1.explosion)
+
+    End Sub
+
+    Private Sub CreateFileFromResource(filepath As String, resource As Byte())
+
+        Try
+
+            If Not IO.File.Exists(filepath) Then
+
+                IO.File.WriteAllBytes(filepath, resource)
+
+            End If
+
+        Catch ex As Exception
+
+            Debug.Print($"Error creating file: {ex.Message}")
+
+        End Try
 
     End Sub
 
