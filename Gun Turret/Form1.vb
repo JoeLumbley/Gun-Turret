@@ -637,14 +637,16 @@ Public Class Form1
     Public Sub New()
         InitializeComponent()
 
+        InitializeForm()
+
         CreateSoundFiles()
 
         InitializeSounds()
 
         ' Enable double buffering to reduce flickering
-        Me.DoubleBuffered = True
+        'Me.DoubleBuffered = True
 
-        Text = "Gun Turret - Code with Joe"
+        'Text = "Gun Turret - Code with Joe"
 
         ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
 
@@ -655,6 +657,22 @@ Public Class Form1
         InitializeTimer()
 
     End Sub
+
+    Private Sub InitializeForm()
+
+        CenterToScreen()
+
+        SetStyle(ControlStyles.UserPaint, True)
+
+        ' Enable double buffering to reduce flickering
+        SetStyle(ControlStyles.OptimizedDoubleBuffer Or ControlStyles.AllPaintingInWmPaint, True)
+
+        Text = "Gun Turret - Code with Joe"
+
+        Me.WindowState = FormWindowState.Maximized
+
+    End Sub
+
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
