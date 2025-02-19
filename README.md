@@ -463,7 +463,9 @@ Public Class Form1
 The `Form1` class is the main class for the graphical user interface of the simulation.
 
 ### Member Variables
+
 ```vb
+
 Private OffScreen As New BufferManager(Me, BackColor)
 Private Player As AudioPlayer
 Private Turret As Turret
@@ -479,8 +481,12 @@ Private Target As New Rectangle(0, 0, 100, 100)
 Private TargetBrush As Brush = Brushes.Black
 Private InstructionsFont As New Font("Segoe UI", 12)
 Private InstructionsLocation As New PointF(0, 0)
-Private InstructionsText As New String("Use left or right arrow keys to rotate turret." & Environment.NewLine & "Press X to fire, hold for automatic.")
+Private InstructionsText As New String("Use left or right arrow keys to rotate turret." &
+                                        Environment.NewLine &
+                                        "Press X to fire, hold for automatic.")
+
 ```
+
 - **OffScreen**: Manages off-screen rendering to reduce flickering.
 - **Player**: Responsible for audio playback.
 - **Turret**: An instance of the `Turret` structure.
@@ -495,7 +501,9 @@ Private InstructionsText As New String("Use left or right arrow keys to rotate t
 - **InstructionsFont, InstructionsLocation, InstructionsText**: Used to display instructions on the screen.
 
 ### Constructor
+
 ```vb
+
 Public Sub New()
     InitializeComponent()
     InitializeForm()
