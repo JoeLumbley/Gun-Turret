@@ -790,11 +790,7 @@ Public Class Form1
 
     Private RightArrowDown As Boolean
 
-    'Private ReloadTime As TimeSpan = TimeSpan.FromMilliseconds(100)
-
     Private TimeToNextRotation As TimeSpan = TimeSpan.FromMilliseconds(1)
-
-    'Private LastFireTime As DateTime = Now
 
     Private LastRotationTime As DateTime = Now
 
@@ -806,7 +802,8 @@ Public Class Form1
 
     Private InstructionsLocation As New PointF(0, 0)
 
-    Private InstructionsText As New String("Use left or right arrow keys to rotate turret. Press X to fire, hold for automatic.")
+
+    Private InstructionsText As New String("Use left or right arrow keys to rotate turret." & Environment.NewLine & "Press X to fire, hold for automatic.")
 
     ' Constructor for the form.
     Public Sub New()
