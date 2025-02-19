@@ -1035,11 +1035,14 @@ Public Class Form1
 
             TargetBrush = Brushes.Blue
 
-            If Not Player.IsPlaying("explosion") Then
+            Player.PlayOverlapping("explosion")
 
-                Player.PlaySound("explosion")
 
-            End If
+            'If Not Player.IsPlaying("explosion") Then
+
+            '    Player.PlaySound("explosion")
+
+            'End If
 
             Projectiles.RemoveCollidingProjectiles(Target)
 
@@ -1070,8 +1073,8 @@ Public Class Form1
         Player.SetVolume("ambientnoise", 5)
 
         FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
-        Player.AddSound("explosion", FilePath)
-        Player.SetVolume("explosion", 200)
+        Player.AddOverlapping("explosion", FilePath)
+        Player.SetVolumeOverlapping("explosion", 200)
 
     End Sub
 
