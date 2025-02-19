@@ -22,9 +22,8 @@ An application that simulates a gun turret, allowing for rotation and firing pro
 
 # Code Walkthrough
 
-# Gun Turret Simulation Code Walkthrough
 
-Welcome to the detailed walkthrough of the Gun Turret simulation code! In this lesson, we will go through the code line by line, explaining each part in a way that is easy to understand for beginners. This project is written in Visual Basic .NET and simulates a turret that can rotate and fire projectiles. Let’s dive in!
+Welcome to the detailed walkthrough of the Gun Turret simulation code! In this lesson, we will go through the code line by line, explaining each part in a way that is easy to understand. This project simulates a turret that can rotate and fire projectiles. Let’s dive in!
 
 ## Turret Structure
 
