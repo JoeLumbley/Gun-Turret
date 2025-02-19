@@ -1038,7 +1038,7 @@ Public Class Form1
 
         If Projectiles.IsColliding(Target) Then
 
-            TargetBrush = Brushes.Blue
+            TargetBrush = Brushes.Red
 
             Player.PlayOverlapping("explosion")
 
@@ -1072,7 +1072,7 @@ Public Class Form1
 
         FilePath = Path.Combine(Application.StartupPath, "explosion.mp3")
         Player.AddOverlapping("explosion", FilePath)
-        Player.SetVolumeOverlapping("explosion", 200)
+        Player.SetVolumeOverlapping("explosion", 700)
 
     End Sub
 
