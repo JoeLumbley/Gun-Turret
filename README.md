@@ -71,20 +71,42 @@ This constructor initializes the turret’s properties:
 - The `UnderlightPen` and `UnderlightBrush` are initialized with a semi-transparent blue color.
 
 ### Draw Method
+
 ```vb
+
 Public Sub Draw(g As Graphics)
     ' Draw a line of given length from the given center point at a given angle.
 
     Dim Diameter As Integer = 75
-    Dim UnderLightRectangle As New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter)
+
+    Dim UnderLightRectangle As New Rectangle(Center.X - Diameter / 2,
+                                             Center.Y - Diameter / 2,
+                                             Diameter, Diameter)
     UnderLightRectangle.Inflate(2, 2)
 
-    g.FillEllipse(UnderlightBrush, UnderLightRectangle)
-    DrawEllipseWithRadialGradient(g, Center, Diameter)
-    DrawLineFromCenterGivenLenghtAndAngle(g, UnderlightPen, Center, Length, AngleInDegrees)
-    DrawLineFromCenterGivenLenghtAndAngle(g, Pen, Center, Length, AngleInDegrees)
+    g.FillEllipse(UnderlightBrush,
+                  UnderLightRectangle)
+
+    DrawEllipseWithRadialGradient(g,
+                                  Center,
+                                  Diameter)
+
+    DrawLineFromCenterGivenLenghtAndAngle(g,
+                                          UnderlightPen,
+                                          Center,
+                                          Length,
+                                          AngleInDegrees)
+
+    DrawLineFromCenterGivenLenghtAndAngle(g,
+                                          Pen,
+                                          Center,
+                                          Length,
+                                          AngleInDegrees)
+
 End Sub
+
 ```
+
 - **Draw**: This method is responsible for rendering the turret on the screen.
 - **Diameter**: Defines the size of the turret's base.
 - **UnderLightRectangle**: Creates a rectangle that represents the area for the under-light effect, centered at the turret's center.
