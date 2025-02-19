@@ -177,9 +177,11 @@ Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics,
                                                   center As PointF,
                                                   length As Integer,
                                                   angleInDegrees As Single)
+
     ' Draw a line of given length from the given center point at a given angle.
 
-    Dim angleInRadians As Single = angleInDegrees * (Math.PI / 180) ' Convert to radians
+    ' Convert to the angle in degrees to radians.
+    Dim angleInRadians As Single = angleInDegrees * (Math.PI / 180)
 
     Dim EndPoint As PointF
 
@@ -193,6 +195,7 @@ Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics,
 End Sub
 
 ```
+
 - **DrawLineFromCenterGivenLengthAndAngle**: This method draws a line representing the turret's barrel.
 - **angleInRadians**: Converts the angle from degrees to radians, which is necessary for trigonometric calculations.
 - **EndPoint**: Calculates where the line will end based on the length and angle using cosine and sine functions.
