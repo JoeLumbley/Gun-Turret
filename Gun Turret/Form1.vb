@@ -24,6 +24,7 @@
 
 ' https://github.com/JoeLumbley/Gun-Turret
 
+Imports System.Drawing.Drawing2D
 Imports System.IO
 Imports System.Math
 Imports System.Runtime.InteropServices
@@ -70,34 +71,73 @@ End Structure
 Public Structure Turret
 
     Public Pen As Pen
-    Public Center As PointF
+    Public Center As Point
     Public Length As Integer
     Public AngleInDegrees As Single
+    Public UnderlightPen As Pen
+    Public UnderlightBrush As Brush
 
-    Public Sub New(pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
+
+
+    Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single)
 
         Me.Pen = pen
         Me.Center = center
         Me.Length = length
         Me.AngleInDegrees = angleInDegrees
-
+        UnderlightPen = New Pen(Color.FromArgb(128, Color.Blue), 23)
+        UnderlightBrush = New SolidBrush(Color.FromArgb(128, Color.Blue))
     End Sub
 
     Public Sub Draw(g As Graphics)
         ' Draw a line of given length from the given center point at a given angle.
 
-        g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        'g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
         Dim Diameter As Integer = 75
 
+        Dim UnderLightRectangle As New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter)
 
-        g.FillEllipse(Brushes.Gray, New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter))
+        UnderLightRectangle.Inflate(2, 2)
 
+        g.FillEllipse(UnderlightBrush, UnderLightRectangle)
+
+        DrawEllipseWithRadialGradient(g, Center, Diameter)
 
         ' Draw Barrel
+        DrawLineFromCenterGivenLenghtAndAngle(g, UnderlightPen, Center, Length, AngleInDegrees)
+
         DrawLineFromCenterGivenLenghtAndAngle(g, Pen, Center, Length, AngleInDegrees)
 
+
     End Sub
+
+    'Imports System.Drawing
+    'Imports System.Drawing.Drawing2D
+
+    Public Sub DrawEllipseWithRadialGradient(g As Graphics, Center As Point, Diameter As Integer)
+        ' Create the path for the ellipse
+        Dim path As New GraphicsPath()
+
+        path.AddEllipse(New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter))
+
+        ' Create the radial gradient brush
+        Dim brush As New PathGradientBrush(path)
+
+        ' Set the center color (highlight)
+        brush.CenterColor = Color.White
+
+        ' Set the surrounding colors (background)
+        brush.SurroundColors = New Color() {Color.Black}
+
+        ' Set the center point of the gradient to the top left quadrant
+        brush.CenterPoint = New PointF(Center.X - Diameter / 4, Center.Y - Diameter / 4)
+
+        ' Fill the ellipse with the radial gradient brush
+        g.FillEllipse(brush, New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter))
+
+    End Sub
+
 
     Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
         ' Draw a line of given length from the given center point at a given angle.
@@ -110,7 +150,7 @@ Public Structure Turret
         EndPoint = New PointF(center.X + length * Cos(angleInRadians),
                               center.Y + length * Sin(angleInRadians))
 
-        g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        'g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
         ' Draw the line.
         g.DrawLine(pen, center, EndPoint)
@@ -648,8 +688,15 @@ Public Structure BufferManager
             Buffered.Graphics.CompositingMode =
                     Drawing2D.CompositingMode.SourceOver
 
+            Buffered.Graphics.CompositingQuality =
+                              CompositingQuality.GammaCorrected
+
+            Buffered.Graphics.SmoothingMode =
+                    Drawing2D.SmoothingMode.AntiAlias
+
+
             Buffered.Graphics.TextRenderingHint =
-                 Text.TextRenderingHint.AntiAlias
+                         Text.TextRenderingHint.AntiAlias
 
             EraseFrame()
 
@@ -716,7 +763,7 @@ Public Class Form1
 
     Private DeltaTime As DeltaTimeStructure
 
-    Private ClientCenter As PointF
+    Private ClientCenter As Point
 
     Private ADown As Boolean
 
@@ -754,7 +801,7 @@ Public Class Form1
 
         InitializeSounds()
 
-        ClientCenter = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+        ClientCenter = New Point(ClientSize.Width / 2, ClientSize.Height / 2)
 
         Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
 
@@ -809,7 +856,7 @@ Public Class Form1
 
         OffScreen.AllocateBuffer(Me)
 
-        OffScreen.Buffered.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        'OffScreen.Buffered.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
 
         OffScreen.Buffered.Graphics.DrawString(InstructionsText, InstructionsFont, Brushes.Black, InstructionsLocation)
 
@@ -871,7 +918,7 @@ Public Class Form1
 
         If Not WindowState = FormWindowState.Minimized Then
 
-            Turret.Center = New PointF(ClientSize.Width / 2, ClientSize.Height / 2)
+            Turret.Center = New Point(ClientSize.Width / 2, ClientSize.Height / 2)
 
             Target.Y = ClientSize.Height / 2 - Target.Height / 2
 
