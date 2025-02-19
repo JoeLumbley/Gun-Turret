@@ -125,11 +125,20 @@ End Sub
 - **DrawLineFromCenterGivenLenghtAndAngle**: Draws the turret's barrel based on its center, length, and angle.
 
 ### DrawEllipseWithRadialGradient Method
+
 ```vb
-Public Sub DrawEllipseWithRadialGradient(g As Graphics, Center As Point, Diameter As Integer)
+
+Public Sub DrawEllipseWithRadialGradient(g As Graphics,
+                                         Center As Point,
+                                         Diameter As Integer)
+
     ' Create the path for the ellipse
     Dim path As New GraphicsPath()
-    Dim GradRect As New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter)
+
+    Dim GradRect As New Rectangle(Center.X - Diameter / 2,
+                                  Center.Y - Diameter / 2,
+                                  Diameter, Diameter)
+
     GradRect.Inflate(4, 4)
 
     path.AddEllipse(GradRect)
@@ -139,13 +148,21 @@ Public Sub DrawEllipseWithRadialGradient(g As Graphics, Center As Point, Diamete
 
     ' Set the center color (highlight)
     brush.CenterColor = Color.White
+
     brush.SurroundColors = New Color() {Color.Black}
-    brush.CenterPoint = New PointF(Center.X - Diameter / 4, Center.Y - Diameter / 4)
+
+    brush.CenterPoint = New PointF(Center.X - Diameter / 4,
+                                   Center.Y - Diameter / 4)
 
     ' Fill the ellipse with the radial gradient brush
-    g.FillEllipse(brush, New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter))
+    g.FillEllipse(brush, New Rectangle(Center.X - Diameter / 2,
+                                       Center.Y - Diameter / 2,
+                                       Diameter, Diameter))
+
 End Sub
+
 ```
+
 - **DrawEllipseWithRadialGradient**: This method creates a radial gradient effect for the turret's base.
 - **GraphicsPath**: Used to define the shape of the ellipse that will be filled with a gradient.
 - **PathGradientBrush**: A brush that allows for a gradient fill, with a center color and surrounding colors.
