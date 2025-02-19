@@ -1040,9 +1040,9 @@ Public Class Form1
 
         If Projectiles.IsColliding(Target) Then
 
-            TargetBrush = Brushes.Red
-
             Player.PlayOverlapping("explosion")
+
+            TargetBrush = Brushes.Red
 
             Projectiles.RemoveCollidingProjectiles(Target)
 
