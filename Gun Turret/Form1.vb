@@ -71,18 +71,20 @@ End Structure
 Public Structure Turret
 
     Public Pen As Pen
+    Public UnderlightPen As Pen
+    Public UnderlightBrush As Brush
     Public Center As Point
     Public Length As Integer
     Public AngleInDegrees As Single
-    Public UnderlightPen As Pen
-    Public UnderlightBrush As Brush
+    Public ReloadTime As TimeSpan
 
-    Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single)
+    Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single, reloadTime As TimeSpan)
 
         Me.Pen = pen
         Me.Center = center
         Me.Length = length
         Me.AngleInDegrees = angleInDegrees
+        Me.ReloadTime = reloadTime
         UnderlightPen = New Pen(Color.FromArgb(128, Color.Blue), 23)
         UnderlightBrush = New SolidBrush(Color.FromArgb(128, Color.Blue))
     End Sub
@@ -787,7 +789,7 @@ Public Class Form1
 
     Private RightArrowDown As Boolean
 
-    Private ReloadTime As TimeSpan = TimeSpan.FromMilliseconds(100)
+    'Private ReloadTime As TimeSpan = TimeSpan.FromMilliseconds(100)
 
     Private TimeToNextRotation As TimeSpan = TimeSpan.FromMilliseconds(1)
 
@@ -817,7 +819,7 @@ Public Class Form1
 
         ClientCenter = New Point(ClientSize.Width / 2, ClientSize.Height / 2)
 
-        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0)
+        Turret = New Turret(New Pen(Color.Black, 20), ClientCenter, 100, 0, TimeSpan.FromMilliseconds(100))
 
         Player.LoopSound("ambientnoise")
 
@@ -1015,9 +1017,11 @@ Public Class Form1
 
     Private Sub FireProjectile()
 
+        ' TODO: Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
         Dim ElapsedTime As TimeSpan = Now - LastFireTime
 
-        If ElapsedTime > ReloadTime Then
+        ' TODO: If ElapsedTime > Turret.ReloadTime Then
+        If ElapsedTime > Turret.ReloadTime Then
 
             Player.PlayOverlapping("gunshot")
 
@@ -1036,13 +1040,6 @@ Public Class Form1
             TargetBrush = Brushes.Blue
 
             Player.PlayOverlapping("explosion")
-
-
-            'If Not Player.IsPlaying("explosion") Then
-
-            '    Player.PlaySound("explosion")
-
-            'End If
 
             Projectiles.RemoveCollidingProjectiles(Target)
 
