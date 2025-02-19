@@ -1019,10 +1019,11 @@ Public Class Form1
     Private Sub FireProjectile()
 
         ' TODO: Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
-        Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
+        'Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
 
         ' TODO: If ElapsedTime > Turret.ReloadTime Then
-        If ElapsedTime > Turret.ReloadTime Then
+        If Now - Turret.LastFireTime > Turret.ReloadTime Then
+            'ElapsedTimeFromLastFire > Turret.ReloadTime
 
             Player.PlayOverlapping("gunshot")
 
