@@ -77,8 +77,6 @@ Public Structure Turret
     Public UnderlightPen As Pen
     Public UnderlightBrush As Brush
 
-
-
     Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single)
 
         Me.Pen = pen
@@ -91,8 +89,6 @@ Public Structure Turret
 
     Public Sub Draw(g As Graphics)
         ' Draw a line of given length from the given center point at a given angle.
-
-        'g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
         Dim Diameter As Integer = 75
 
@@ -111,9 +107,6 @@ Public Structure Turret
 
 
     End Sub
-
-    'Imports System.Drawing
-    'Imports System.Drawing.Drawing2D
 
     Public Sub DrawEllipseWithRadialGradient(g As Graphics, Center As Point, Diameter As Integer)
         ' Create the path for the ellipse
@@ -138,7 +131,6 @@ Public Structure Turret
 
     End Sub
 
-
     Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
         ' Draw a line of given length from the given center point at a given angle.
 
@@ -149,8 +141,6 @@ Public Structure Turret
         ' Calculate the endpoint of the line using trigonometry
         EndPoint = New PointF(center.X + length * Cos(angleInRadians),
                               center.Y + length * Sin(angleInRadians))
-
-        'g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
 
         ' Draw the line.
         g.DrawLine(pen, center, EndPoint)
@@ -795,8 +785,6 @@ Public Class Form1
 
         InitializeForm()
 
-        'OffScreen.InitializeBuffer(Me)
-
         CreateSoundFiles()
 
         InitializeSounds()
@@ -849,22 +837,6 @@ Public Class Form1
         OffScreen.Buffered?.Render(e.Graphics)
 
         OffScreen.EraseFrame()
-
-    End Sub
-
-    Private Sub DrawFrame()
-
-        OffScreen.AllocateBuffer(Me)
-
-        'OffScreen.Buffered.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
-
-        OffScreen.Buffered.Graphics.DrawString(InstructionsText, InstructionsFont, Brushes.Black, InstructionsLocation)
-
-        OffScreen.Buffered.Graphics.FillRectangle(TargetBrush, Target)
-
-        Projectiles.DrawProjectiles(OffScreen.Buffered.Graphics)
-
-        Turret.Draw(OffScreen.Buffered.Graphics)
 
     End Sub
 
@@ -934,23 +906,17 @@ Public Class Form1
 
     End Sub
 
-    Private Sub HandleCollisions()
+    Private Sub DrawFrame()
 
-        If Projectiles.IsColliding(Target) Then
+        OffScreen.AllocateBuffer(Me)
 
-            TargetBrush = Brushes.Blue
+        OffScreen.Buffered.Graphics.DrawString(InstructionsText, InstructionsFont, Brushes.Black, InstructionsLocation)
 
-            If Not Player.IsPlaying("explosion") Then
+        OffScreen.Buffered.Graphics.FillRectangle(TargetBrush, Target)
 
-                Player.PlaySound("explosion")
+        Projectiles.DrawProjectiles(OffScreen.Buffered.Graphics)
 
-            End If
-
-        Else
-
-            TargetBrush = Brushes.Black
-
-        End If
+        Turret.Draw(OffScreen.Buffered.Graphics)
 
     End Sub
 
@@ -1032,6 +998,26 @@ Public Class Form1
             Projectiles.FireProjectile(Turret.Center, Turret.AngleInDegrees)
 
             LastFireTime = Now
+
+        End If
+
+    End Sub
+
+    Private Sub HandleCollisions()
+
+        If Projectiles.IsColliding(Target) Then
+
+            TargetBrush = Brushes.Blue
+
+            If Not Player.IsPlaying("explosion") Then
+
+                Player.PlaySound("explosion")
+
+            End If
+
+        Else
+
+            TargetBrush = Brushes.Black
 
         End If
 
