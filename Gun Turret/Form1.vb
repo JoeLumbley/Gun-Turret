@@ -340,7 +340,7 @@ Public Structure ProjectileManager
 
         ' Projectiles.Any(Function(p) p.Rectangle().IntersectsWith(rectangle))
 
-        ' This is a LINQ (Language-Integrated Query) lambda expression.
+        ' This is a LINQ lambda expression.
 
         ' The Any method with a lambda expression is a concise and efficient
         ' way to check if any projectile intersects with the given rectangle.
@@ -350,7 +350,6 @@ Public Structure ProjectileManager
         Return False
 
     End Function
-
 
     Public Sub RemoveCollidingProjectiles(rectangle As Rectangle)
         ' Remove projectiles that collide with the given rectangle.
@@ -367,8 +366,6 @@ Public Structure ProjectileManager
 
         ' Not p.Rectangle().IntersectsWith(rectangle)
 
-        ' Using LINQ with lambda expressions is a powerful way to perform queries
-        ' and manipulate collections in a concise and readable manner.
     End Sub
 
     Private Sub RemoveProjectilesPastTheirLifeTime()
