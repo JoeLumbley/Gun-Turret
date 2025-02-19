@@ -1,6 +1,6 @@
 # Gun Turret
 
-A application that simulates a gun turret, allowing for rotation and firing projectiles.
+An application that simulates a gun turret, allowing for rotation and firing projectiles.
 
 
 
