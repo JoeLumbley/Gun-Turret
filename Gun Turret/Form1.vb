@@ -765,11 +765,6 @@ Public Structure BufferManager
 End Structure
 
 
-
-
-
-
-
 Public Class Form1
 
     Private OffScreen As New BufferManager(Me, BackColor)
