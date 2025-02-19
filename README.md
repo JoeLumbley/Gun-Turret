@@ -6,8 +6,8 @@ A application that simulates a gun turret, allowing for rotation and firing proj
 
 
 
+![006](https://github.com/user-attachments/assets/6a4b183f-1821-48f8-9a5e-be1689c25861)
 
-![004](https://github.com/user-attachments/assets/50256b9a-dc75-4e9e-8521-8e25e0bac264)
 
 
 
