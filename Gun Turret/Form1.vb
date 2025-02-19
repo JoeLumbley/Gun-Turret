@@ -803,7 +803,6 @@ Public Class Form1
 
     Private InstructionsLocation As New PointF(0, 0)
 
-
     Private InstructionsText As New String("Use left or right arrow keys to rotate turret." & Environment.NewLine & "Press X to fire, hold for automatic.")
 
     ' Constructor for the form.
@@ -1016,13 +1015,9 @@ Public Class Form1
 
     Private Sub FireProjectile()
 
-        ' Is the elapsed time from last fire 
-
         ' Is it time to shoot my shot?
         If Now - Turret.LastFireTime > Turret.TimeToNextFire Then
             ' Yes, it's time to shoot your shot.
-
-            'ElapsedTimeFromLastFire > Turret.ReloadTime
 
             Player.PlayOverlapping("gunshot")
 
