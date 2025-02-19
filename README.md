@@ -201,6 +201,14 @@ End Sub
 - **EndPoint**: Calculates where the line will end based on the length and angle using cosine and sine functions.
 - **g.DrawLine**: Draws the line from the center of the turret to the calculated endpoint.
 
+
+
+
+
+
+
+
+
 ## ProjectileManager Structure
 
 ### Definition
@@ -244,16 +252,23 @@ Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLen
 End Sub
 
 ```
+
 This constructor initializes the projectile manager's properties using the provided parameters.
 
 ### Projectile Structure
+
 ```vb
+
 Private Structure Projectile
+
 ```
+
 Defines a structure for individual projectiles.
 
 ### Member Variables
+
 ```vb
+
 Public X, Y, Width, Height As Double
 Public Velocity As PointF
 Public Brush As Brush
@@ -261,7 +276,9 @@ Public Center As PointF
 Public BarrelLength As Integer
 Public AngleInDegrees As Single
 Public Creation As DateTime
+
 ```
+
 - **X, Y**: Position of the projectile.
 - **Width, Height**: Dimensions of the projectile.
 - **Velocity**: Speed and direction of the projectile.
@@ -272,8 +289,17 @@ Public Creation As DateTime
 - **Creation**: The time when the projectile was created.
 
 ### Constructor
+
 ```vb
-Public Sub New(brush As Brush, width As Double, height As Double, velocity As Single, center As PointF, length As Integer, angleInDegrees As Single)
+
+Public Sub New(brush As Brush,
+               width As Double,
+               height As Double,
+               velocity As Single,
+               center As PointF,
+               length As Integer,
+               angleInDegrees As Single)
+
     Me.Brush = brush
     Me.Width = width
     Me.Height = height
@@ -293,13 +319,19 @@ Public Sub New(brush As Brush, width As Double, height As Double, velocity As Si
                              Sin(AngleInRadians) * velocity)
 
     Creation = Now()
+
 End Sub
+
 ```
+
 - This constructor initializes the projectile's properties and calculates its initial position and velocity based on the angle and length.
 
 ### UpdateMovement Method
+
 ```vb
+
 Public Sub UpdateMovement(ByVal deltaTime As TimeSpan)
+
     ' Move our projectile horizontally.
     X += Velocity.X * deltaTime.TotalSeconds 'Δs = V * Δt
     ' Displacement = Velocity x Delta Time
