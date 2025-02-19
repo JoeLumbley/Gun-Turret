@@ -169,8 +169,14 @@ End Sub
 - **g.FillEllipse**: Fills the ellipse with the gradient brush.
 
 ### DrawLineFromCenterGivenLengthAndAngle Method
+
 ```vb
-Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, center As PointF, length As Integer, angleInDegrees As Single)
+
+Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics,
+                                                  pen As Pen,
+                                                  center As PointF,
+                                                  length As Integer,
+                                                  angleInDegrees As Single)
     ' Draw a line of given length from the given center point at a given angle.
 
     Dim angleInRadians As Single = angleInDegrees * (Math.PI / 180) ' Convert to radians
@@ -183,7 +189,9 @@ Private Sub DrawLineFromCenterGivenLenghtAndAngle(g As Graphics, pen As Pen, cen
 
     ' Draw the line.
     g.DrawLine(pen, center, EndPoint)
+
 End Sub
+
 ```
 - **DrawLineFromCenterGivenLengthAndAngle**: This method draws a line representing the turret's barrel.
 - **angleInRadians**: Converts the angle from degrees to radians, which is necessary for trigonometric calculations.
@@ -193,19 +201,27 @@ End Sub
 ## ProjectileManager Structure
 
 ### Definition
+
 ```vb
+
 Public Structure ProjectileManager
+
 ```
+
 The `ProjectileManager` structure manages the projectiles fired from the turret.
 
 ### Member Variables
+
 ```vb
+
 Public Brush As Brush
 Public BarrelLength As Integer
 Public MuzzleVelocity As Single
 Public Size As Size
 Public LifeTimeInSeconds As Integer
+
 ```
+
 - **Brush**: The brush used for drawing projectiles.
 - **BarrelLength**: Length of the turret's barrel.
 - **MuzzleVelocity**: Speed at which projectiles are fired.
@@ -213,7 +229,9 @@ Public LifeTimeInSeconds As Integer
 - **LifeTimeInSeconds**: How long the projectiles will exist before being removed.
 
 ### Constructor
+
 ```vb
+
 Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLength As Integer, lifeTimeInSeconds As Integer)
     Me.Brush = brush
     Me.BarrelLength = barrelLength
@@ -221,6 +239,7 @@ Public Sub New(brush As Brush, size As Size, muzzleVelocity As Single, barrelLen
     Me.Size = size
     Me.LifeTimeInSeconds = lifeTimeInSeconds
 End Sub
+
 ```
 This constructor initializes the projectile manager's properties using the provided parameters.
 
