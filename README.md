@@ -54,8 +54,15 @@ Public LastFireTime As DateTime
 - **LastFireTime**: The last time the turret fired a projectile.
 
 ### Constructor
+
 ```vb
-Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single, reloadTime As TimeSpan)
+
+Public Sub New(pen As Pen,
+               center As Point,
+               length As Integer,
+               angleInDegrees As Single,
+               reloadTime As TimeSpan)
+
     Me.Pen = pen
     Me.Center = center
     Me.Length = length
@@ -63,8 +70,11 @@ Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As
     Me.TimeToNextFire = reloadTime
     UnderlightPen = New Pen(Color.FromArgb(128, Color.Blue), 23)
     UnderlightBrush = New SolidBrush(Color.FromArgb(128, Color.Blue))
+
 End Sub
+
 ```
+
 This constructor initializes the turret’s properties:
 - **Me**: Refers to the current instance of the structure.
 - The parameters allow us to set the initial values for the `Pen`, `Center`, `Length`, `AngleInDegrees`, and `TimeToNextFire`.
