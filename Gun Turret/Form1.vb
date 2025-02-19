@@ -76,7 +76,7 @@ Public Structure Turret
     Public Center As Point
     Public Length As Integer
     Public AngleInDegrees As Single
-    Public ReloadTime As TimeSpan
+    Public TimeToNextFire As TimeSpan
     Public LastFireTime As DateTime
 
     Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single, reloadTime As TimeSpan)
@@ -85,7 +85,7 @@ Public Structure Turret
         Me.Center = center
         Me.Length = length
         Me.AngleInDegrees = angleInDegrees
-        Me.ReloadTime = reloadTime
+        Me.TimeToNextFire = reloadTime
         UnderlightPen = New Pen(Color.FromArgb(128, Color.Blue), 23)
         UnderlightBrush = New SolidBrush(Color.FromArgb(128, Color.Blue))
     End Sub
@@ -784,7 +784,7 @@ Public Class Form1
 
     Private ClientCenter As Point
 
-    Private ADown As Boolean
+    Private XDown As Boolean
 
     Private LeftArrowDown As Boolean
 
@@ -806,7 +806,7 @@ Public Class Form1
 
     Private InstructionsLocation As New PointF(0, 0)
 
-    Private InstructionsText As New String("Use left or right arrow keys to rotate turret. Press A to fire, hold for automatic.")
+    Private InstructionsText As New String("Use left or right arrow keys to rotate turret. Press X to fire, hold for automatic.")
 
     ' Constructor for the form.
     Public Sub New()
@@ -884,9 +884,9 @@ Public Class Form1
 
         End If
 
-        If e.KeyCode = Keys.A Then
+        If e.KeyCode = Keys.X Then
 
-            ADown = True
+            XDown = True
 
         End If
 
@@ -907,9 +907,9 @@ Public Class Form1
 
         End If
 
-        If e.KeyCode = Keys.A Then
+        If e.KeyCode = Keys.X Then
 
-            ADown = False
+            XDown = False
 
         End If
 
@@ -952,7 +952,7 @@ Public Class Form1
     Private Sub HandleKeyPresses()
         ' Handle key presses to rotate the turret or fire projectiles.
 
-        If ADown Then
+        If XDown Then
 
             FireProjectile()
 
@@ -1018,11 +1018,12 @@ Public Class Form1
 
     Private Sub FireProjectile()
 
-        ' TODO: Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
-        'Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
+        ' Is the elapsed time from last fire 
 
-        ' TODO: If ElapsedTime > Turret.ReloadTime Then
-        If Now - Turret.LastFireTime > Turret.ReloadTime Then
+        ' Is it time to shoot my shot?
+        If Now - Turret.LastFireTime > Turret.TimeToNextFire Then
+            ' Yes, it's time to shoot your shot.
+
             'ElapsedTimeFromLastFire > Turret.ReloadTime
 
             Player.PlayOverlapping("gunshot")
