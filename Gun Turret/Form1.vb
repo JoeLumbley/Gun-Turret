@@ -112,7 +112,11 @@ Public Structure Turret
         ' Create the path for the ellipse
         Dim path As New GraphicsPath()
 
-        path.AddEllipse(New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter))
+        Dim GradRect As New Rectangle(Center.X - Diameter / 2, Center.Y - Diameter / 2, Diameter, Diameter)
+
+        GradRect.Inflate(4, 4)
+
+        path.AddEllipse(GradRect)
 
         ' Create the radial gradient brush
         Dim brush As New PathGradientBrush(path)
@@ -346,6 +350,26 @@ Public Structure ProjectileManager
         Return False
 
     End Function
+
+
+    Public Sub RemoveCollidingProjectiles(rectangle As Rectangle)
+        ' Remove projectiles that collide with the given rectangle.
+
+        ' Check for projectiles that collide.
+        Projectiles = Projectiles.Where(Function(p) Not p.Rectangle().IntersectsWith(rectangle)).ToArray()
+
+        ' Projectiles.Where(Function(p) Not p.Rectangle().IntersectsWith(rectangle))
+
+        ' This is a LINQ lambda expression.
+
+        ' The Where method filters the Projectiles array based on the condition
+        ' provided by the lambda function.
+
+        ' Not p.Rectangle().IntersectsWith(rectangle)
+
+        ' Using LINQ with lambda expressions is a powerful way to perform queries
+        ' and manipulate collections in a concise and readable manner.
+    End Sub
 
     Private Sub RemoveProjectilesPastTheirLifeTime()
         ' To prevent a slow down and to reduce memory use.
@@ -676,17 +700,22 @@ Public Structure BufferManager
             Buffered = Context.Allocate(form.CreateGraphics(), form.ClientRectangle)
 
             Buffered.Graphics.CompositingMode =
-                    Drawing2D.CompositingMode.SourceOver
+                              CompositingMode.SourceOver
 
             Buffered.Graphics.CompositingQuality =
-                              CompositingQuality.GammaCorrected
+                              CompositingQuality.HighQuality
 
             Buffered.Graphics.SmoothingMode =
-                    Drawing2D.SmoothingMode.AntiAlias
+                              SmoothingMode.HighQuality
 
+            Buffered.Graphics.InterpolationMode =
+                              InterpolationMode.Bicubic
+
+            Buffered.Graphics.PixelOffsetMode =
+                              PixelOffsetMode.HighQuality
 
             Buffered.Graphics.TextRenderingHint =
-                         Text.TextRenderingHint.AntiAlias
+                         Text.TextRenderingHint.AntiAliasGridFit
 
             EraseFrame()
 
@@ -1014,6 +1043,8 @@ Public Class Form1
                 Player.PlaySound("explosion")
 
             End If
+
+            Projectiles.RemoveCollidingProjectiles(Target)
 
         Else
 
