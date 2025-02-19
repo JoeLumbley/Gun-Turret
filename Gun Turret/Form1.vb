@@ -77,6 +77,7 @@ Public Structure Turret
     Public Length As Integer
     Public AngleInDegrees As Single
     Public ReloadTime As TimeSpan
+    Public LastFireTime As DateTime
 
     Public Sub New(pen As Pen, center As Point, length As Integer, angleInDegrees As Single, reloadTime As TimeSpan)
 
@@ -793,7 +794,7 @@ Public Class Form1
 
     Private TimeToNextRotation As TimeSpan = TimeSpan.FromMilliseconds(1)
 
-    Private LastFireTime As DateTime = Now
+    'Private LastFireTime As DateTime = Now
 
     Private LastRotationTime As DateTime = Now
 
@@ -1018,7 +1019,7 @@ Public Class Form1
     Private Sub FireProjectile()
 
         ' TODO: Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
-        Dim ElapsedTime As TimeSpan = Now - LastFireTime
+        Dim ElapsedTime As TimeSpan = Now - Turret.LastFireTime
 
         ' TODO: If ElapsedTime > Turret.ReloadTime Then
         If ElapsedTime > Turret.ReloadTime Then
@@ -1027,7 +1028,7 @@ Public Class Form1
 
             Projectiles.FireProjectile(Turret.Center, Turret.AngleInDegrees)
 
-            LastFireTime = Now
+            Turret.LastFireTime = Now
 
         End If
 
